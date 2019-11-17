@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1"
+    android:clickable="true"
+    android:onClick="remove_rules"
+    android:orientation="horizontal"
+    tools:context=".playerLayout5">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/deck"
+            android:layout_width="45dp"
+            android:layout_height="67.5dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:clickable="true"
+            android:onClick="pickCardDeck"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/card_back" />
+
+        <ImageView
+            android:id="@+id/discard_pile"
+            android:layout_width="45dp"
+            android:layout_height="67.5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/spy" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="85dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/player1_3"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/card_back" />
+
+        <ImageView
+            android:id="@+id/player1_4"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/card_back" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/player1_2"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/card_back" />
+
+        <ImageView
+            android:id="@+id/player1_1"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/card_back" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/health_bar_change_1"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/health_bar_change" />
+
+    <ImageView
+        android:id="@+id/health_bar_coat_1"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/health_bar_coat" />
+
+    <TextView
+        android:id="@+id/health_bar_text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="12dp"
+        android:layout_weight="1"
+        android:text="100%"
+        android:textSize="6sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <ImageView
+        android:id="@+id/player2_3"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back" />
+
+    <ImageView
+        android:id="@+id/player2_4"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="94dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back" />
+
+    <ImageView
+        android:id="@+id/player2_2"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back" />
+
+    <ImageView
+        android:id="@+id/player2_1"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="94dp"
+        android:layout_marginTop="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back" />
+
+    <ImageView
+        android:id="@+id/health_bar_change_2"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="170dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/health_bar_change" />
+
+    <ImageView
+        android:id="@+id/health_bar_coat_2"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="170dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/health_bar_coat" />
+
+    <TextView
+        android:id="@+id/health_bar_text_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="177dp"
+        android:layout_weight="1"
+        android:text="100%"
+        android:textSize="6sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/player5_3"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="94dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back"
+        tools:layout_editor_absoluteX="600dp" />
+
+    <ImageView
+        android:id="@+id/player5_4"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back" />
+
+    <ImageView
+        android:id="@+id/player5_2"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="94dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back" />
+
+    <ImageView
+        android:id="@+id/player5_1"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back" />
+
+    <ImageView
+        android:id="@+id/health_bar_change_5"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="170dp"
+        android:layout_marginEnd="32dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/health_bar_change" />
+
+    <ImageView
+        android:id="@+id/health_bar_coat_5"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="170dp"
+        android:layout_marginEnd="32dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/health_bar_coat" />
+
+    <TextView
+        android:id="@+id/health_bar_text_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="177dp"
+        android:layout_marginEnd="117dp"
+        android:layout_weight="1"
+        android:text="100%"
+        android:textSize="6sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="250dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <ImageView
+            android:id="@+id/player3_3"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/card_back"
+            tools:layout_editor_absoluteX="600dp" />
+
+        <ImageView
+            android:id="@+id/player3_4"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/card_back" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="250dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <ImageView
+            android:id="@+id/player3_2"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/card_back"
+            tools:layout_editor_absoluteX="600dp" />
+
+        <ImageView
+            android:id="@+id/player3_1"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/card_back" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/health_bar_change_3"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="250dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/health_bar_change" />
+
+    <ImageView
+        android:id="@+id/health_bar_coat_3"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="250dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/health_bar_coat" />
+
+    <TextView
+        android:id="@+id/health_bar_text_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="315dp"
+        android:layout_weight="1"
+        android:text="100%"
+        android:textSize="6sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <ImageView
+            android:id="@+id/player4_3"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/card_back"
+            tools:layout_editor_absoluteX="600dp" />
+
+        <ImageView
+            android:id="@+id/player4_4"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/card_back" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="72dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <ImageView
+            android:id="@+id/player4_2"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/card_back"
+            tools:layout_editor_absoluteX="600dp" />
+
+        <ImageView
+            android:id="@+id/player4_1"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/card_back" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/health_bar_change_4"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="120dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/health_bar_change" />
+
+    <ImageView
+        android:id="@+id/health_bar_coat_4"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="120dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/health_bar_coat" />
+
+    <TextView
+        android:id="@+id/health_bar_text_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="185dp"
+        android:layout_marginTop="150dp"
+        android:layout_weight="1"
+        android:text="100%"
+        android:textSize="6sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/discard_button_out"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:tint="#f7941d"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/button_out" />
+
+        <ImageView
+            android:id="@+id/discard_button_in"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:tint="#f7941d"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/button_in" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Discard\nCard"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/power_button_out"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:tint="#ed1c24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/button_out" />
+
+        <ImageView
+            android:id="@+id/power_button_in"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:tint="#ed1c24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/button_in" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Use\nPower"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/keep_button_out"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/button_out" />
+
+        <ImageView
+            android:id="@+id/keep_button_in"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/button_in" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Keep\nCard"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/cabo_button_out"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:tint="#20a50a"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/button_out" />
+
+        <ImageView
+            android:id="@+id/cabo_button_in"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:tint="#20a50a"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/button_in" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Call\nCabo"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/help"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="70dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="rules"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/help" />
+
+    <ImageView
+        android:id="@+id/home"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="goToMenu"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/home" />
+
+    <!--
+        <ImageView
+        android:id="@+id/menu"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/menu" />
+
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:tint="#FFFFFF"
+            app:layout_constraintStart_toStartof="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/close" />
+
+    </RelativeLayout>
+    -->
+
+    <TextView
+        android:id="@+id/rules"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="100dp"
+        android:layout_weight="1"
+        android:background="#B2FFFFFF"
+        android:clickable="true"
+        android:onClick="discardCard"
+        android:text="Rules:\n\n
+        Each player is dealt 4 cards face down from the deck Both Jokers are included. The remainder of the cards are placed
+face down to form the stockpile. The top card is placed face-up next to the stockpile to form a discard pile. Players
+arrange their cards into a square formation in front of them. Players my look at the two cards nearest to them ONLY and
+after memorising their rank must replace them face-down back into the square formation. Once all players have done this,
+the cards in front of the players may not be looked at until the end of the game or unless a special card allows it.
+Players should also ensure their cards remain hidden from others.
+"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
