@@ -10,101 +10,62 @@
     android:orientation="horizontal"
     tools:context=".playerLayout5">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+    <ImageView
+        android:id="@+id/player1_3"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="85dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:srcCompat="@drawable/card_back" />
 
-        <ImageView
-            android:id="@+id/deck"
-            android:layout_width="45dp"
-            android:layout_height="67.5dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:clickable="true"
-            android:onClick="pickCardDeck"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/card_back" />
-
-        <ImageView
-            android:id="@+id/discard_pile"
-            android:layout_width="45dp"
-            android:layout_height="67.5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/spy" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/player1_4"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="45dp"
         android:layout_marginBottom="85dp"
-        android:gravity="center_horizontal"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/card_back" />
 
-        <ImageView
-            android:id="@+id/player1_3"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginBottom="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/card_back" />
-
-        <ImageView
-            android:id="@+id/player1_4"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/card_back" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/player1_2"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="45dp"
         android:layout_marginBottom="20dp"
-        android:gravity="center_horizontal"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/card_back" />
+
+    <ImageView
+        android:id="@+id/player1_1"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginBottom="20dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/card_back" />
 
-        <ImageView
-            android:id="@+id/player1_2"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginBottom="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/card_back" />
-
-        <ImageView
-            android:id="@+id/player1_1"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/card_back" />
-
-    </LinearLayout>
 
     <ImageView
         android:id="@+id/health_bar_change_1"
@@ -151,6 +112,9 @@
         android:layout_height="60dp"
         android:layout_marginStart="50dp"
         android:layout_marginBottom="50dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -162,6 +126,9 @@
         android:layout_height="60dp"
         android:layout_marginStart="94dp"
         android:layout_marginBottom="50dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -173,6 +140,9 @@
         android:layout_height="60dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="75dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -184,6 +154,9 @@
         android:layout_height="60dp"
         android:layout_marginStart="94dp"
         android:layout_marginTop="75dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -234,11 +207,13 @@
         android:layout_height="60dp"
         android:layout_marginEnd="94dp"
         android:layout_marginBottom="50dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="18"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/card_back"
-        tools:layout_editor_absoluteX="600dp" />
+        app:srcCompat="@drawable/card_back" />
 
     <ImageView
         android:id="@+id/player5_4"
@@ -246,6 +221,9 @@
         android:layout_height="60dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="50dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="19"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -257,6 +235,9 @@
         android:layout_height="60dp"
         android:layout_marginTop="75dp"
         android:layout_marginEnd="94dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="17"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -268,6 +249,9 @@
         android:layout_height="60dp"
         android:layout_marginTop="75dp"
         android:layout_marginEnd="50dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -311,74 +295,62 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <ImageView
+        android:id="@+id/player3_3"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="250dp"
-        android:gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="295dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back"
+        tools:layout_editor_absoluteX="600dp" />
+
+    <ImageView
+        android:id="@+id/player3_4"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="205dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back" />
+
+    <ImageView
+        android:id="@+id/player3_2"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="295dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back" />
 
-        <ImageView
-            android:id="@+id/player3_3"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/card_back"
-            tools:layout_editor_absoluteX="600dp" />
-
-        <ImageView
-            android:id="@+id/player3_4"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/card_back" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="250dp"
-        android:gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/player3_1"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="205dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-        <ImageView
-            android:id="@+id/player3_2"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/card_back"
-            tools:layout_editor_absoluteX="600dp" />
-
-        <ImageView
-            android:id="@+id/player3_1"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/card_back" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back" />
 
     <ImageView
         android:id="@+id/health_bar_change_3"
@@ -418,39 +390,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="250dp"
+    <ImageView
+        android:id="@+id/player4_3"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="205dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="14"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back"
+        tools:layout_editor_absoluteX="600dp" />
 
-        <ImageView
-            android:id="@+id/player4_3"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/card_back"
-            tools:layout_editor_absoluteX="600dp" />
-
-        <ImageView
-            android:id="@+id/player4_4"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/card_back" />
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/player4_4"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="295dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -462,29 +429,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-        <ImageView
-            android:id="@+id/player4_2"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/card_back"
-            tools:layout_editor_absoluteX="600dp" />
-
-        <ImageView
-            android:id="@+id/player4_1"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/card_back" />
-
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/player4_2"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginStart="205dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back"
+        tools:layout_editor_absoluteX="600dp" />
+
+    <ImageView
+        android:id="@+id/player4_1"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="295dp"
+        android:layout_marginTop="75dp"
+        android:clickable="true"
+        android:onClick="selectCard"
+        android:tag="12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_back" />
 
     <ImageView
         android:id="@+id/health_bar_change_4"
@@ -541,6 +515,7 @@
             android:layout_marginBottom="0dp"
             android:layout_weight="1"
             android:clickable="true"
+            android:onClick="buttonClick"
             android:tint="#f7941d"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -559,6 +534,7 @@
             app:srcCompat="@drawable/button_in" />
 
         <TextView
+            android:id="@+id/discardText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
@@ -585,6 +561,8 @@
             android:layout_marginStart="0dp"
             android:layout_marginBottom="0dp"
             android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="buttonClick"
             android:tint="#ed1c24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -603,6 +581,7 @@
             app:srcCompat="@drawable/button_in" />
 
         <TextView
+            android:id="@+id/powerText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
@@ -629,6 +608,8 @@
             android:layout_marginStart="0dp"
             android:layout_marginBottom="0dp"
             android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="buttonClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/button_out" />
@@ -645,6 +626,7 @@
             app:srcCompat="@drawable/button_in" />
 
         <TextView
+            android:id="@+id/keepText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
@@ -671,6 +653,8 @@
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp"
             android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="buttonClick"
             android:tint="#20a50a"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -689,6 +673,7 @@
             app:srcCompat="@drawable/button_in" />
 
         <TextView
+            android:id="@+id/caboText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
@@ -699,18 +684,64 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/help"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="70dp"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:onClick="rules"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/help" />
+    <RelativeLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/deck_dummy"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:clickable="true"
+            android:onClick="pickCardDeck"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/card_back" />
+
+        <ImageView
+            android:id="@+id/deck"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:clickable="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/card_back" />
+
+        <ImageView
+            android:id="@+id/discard_pile"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="0dp"
+            android:clickable="true"
+            android:onClick="pickDiscardCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/spy" />
+
+        <ImageView
+            android:id="@+id/discard_dummy"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="0dp"
+            android:clickable="true"
+            android:onClick="pickDiscardCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/spy" />
+
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/home"
@@ -759,6 +790,19 @@
     </RelativeLayout>
     -->
 
+    <ImageView
+        android:id="@+id/help"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="70dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="rules"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/help" />
+
     <TextView
         android:id="@+id/rules"
         android:layout_width="0dp"
@@ -769,8 +813,7 @@
         android:layout_marginBottom="100dp"
         android:layout_weight="1"
         android:background="#B2FFFFFF"
-        android:clickable="true"
-        android:onClick="discardCard"
+        android:clickable="false"
         android:text="Rules:\n\n
         Each player is dealt 4 cards face down from the deck Both Jokers are included. The remainder of the cards are placed
 face down to form the stockpile. The top card is placed face-up next to the stockpile to form a discard pile. Players
