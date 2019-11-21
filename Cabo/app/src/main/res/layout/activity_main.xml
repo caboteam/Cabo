@@ -13,13 +13,14 @@
         android:layout_width="149dp"
         android:layout_height="72dp"
         android:layout_marginStart="131dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="131dp"
-        android:layout_marginBottom="101dp"
+        android:fontFamily="@font/proximanovareg"
         android:onClick="playerLayout5"
         android:text="5 Players"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
@@ -28,27 +29,45 @@
         android:layout_width="149dp"
         android:layout_height="72dp"
         android:layout_marginStart="131dp"
-        android:layout_marginTop="213dp"
+        android:layout_marginTop="85dp"
         android:layout_marginEnd="131dp"
-        android:layout_marginBottom="45dp"
+        android:fontFamily="@font/proximanovareg"
         android:onClick="playerLayout4"
         android:text="4 Players"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="149dp"
         android:layout_height="72dp"
         android:layout_marginStart="131dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="131dp"
-        android:layout_marginBottom="155dp"
+        android:fontFamily="@font/proximanovareg"
         android:onClick="playerLayout6"
         android:text="6 Players"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="251dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:ems="10"
+        android:fontFamily="@font/raleway_medium"
+        android:inputType="textPersonName"
+        android:text="CABO"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
