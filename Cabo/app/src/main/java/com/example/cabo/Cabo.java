@@ -12,13 +12,14 @@ public class Cabo {
 
     public Deck deck = new Deck();
     public ArrayList<Player> players = new ArrayList<>();
-    public Counter turn = new Counter();
+    public  Counter turn;
 
     public Cabo(int n) {
-        for (int i = 1; i <= n; i++) {
+        for (int i = 0; i < n; i++) {
             Player p = new Player(i);
             players.add(p);
         }
+        turn = new Counter(n);
         this.deck.deal(players);
     }
 

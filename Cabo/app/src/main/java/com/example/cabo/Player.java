@@ -7,6 +7,7 @@ public class Player {
     public int health = 100;
     public int order;
 
+
     public Player(int order) {
         this.order = order;
     }
@@ -34,6 +35,10 @@ public class Player {
         System.out.print(" = " + count);
     }
 
+    public ArrayList<Integer> getHand() {
+        return hand;
+    }
+
     public int getCard(int i) {
         return this.hand.get(i);
     }
@@ -43,7 +48,7 @@ public class Player {
     }
 
     public void increaseHealth() {
-        this.health += 50;
+        this.health += 10;
     }
 
     public int swap(int index, int value){

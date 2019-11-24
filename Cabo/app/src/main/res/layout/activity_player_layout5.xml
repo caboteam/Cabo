@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_detailed_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background1"
@@ -419,18 +420,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/card_back" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="250dp"
-        android:layout_marginTop="72dp"
-        android:gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-    </LinearLayout>
-
     <ImageView
         android:id="@+id/player4_2"
         android:layout_width="40dp"
@@ -702,6 +691,7 @@
             android:layout_marginTop="0dp"
             android:clickable="true"
             android:onClick="pickCardDeck"
+            android:tag="20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/card_back" />
@@ -713,6 +703,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
             android:clickable="false"
+            android:tag="21"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/card_back" />
@@ -725,9 +716,10 @@
             android:layout_marginTop="0dp"
             android:clickable="true"
             android:onClick="pickDiscardCard"
+            android:tag="22"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/spy" />
+            app:srcCompat="@drawable/card_back" />
 
         <ImageView
             android:id="@+id/discard_dummy"
@@ -737,9 +729,10 @@
             android:layout_marginTop="0dp"
             android:clickable="true"
             android:onClick="pickDiscardCard"
+            android:tag="23"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/spy" />
+            app:srcCompat="@drawable/card_back" />
 
     </RelativeLayout>
 
@@ -756,39 +749,6 @@
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/home" />
-
-    <!--
-        <ImageView
-        android:id="@+id/menu"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_weight="1"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu" />
-
-    <RelativeLayout
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:background="#000000"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-            android:id="@+id/close"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:tint="#FFFFFF"
-            app:layout_constraintStart_toStartof="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/close" />
-
-    </RelativeLayout>
-    -->
 
     <ImageView
         android:id="@+id/help"
@@ -825,6 +785,27 @@ Players should also ensure their cards remain hidden from others.
         android:textAlignment="center"
         android:textColor="#000000"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/call_cabo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="100dp"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:text="Cabo Called!!"
+        android:gravity="center"
+        android:alpha="0"
+        android:textColor="#FFFFFF"
+        android:textSize="75sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
