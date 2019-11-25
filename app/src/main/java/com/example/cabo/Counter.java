@@ -14,7 +14,7 @@ public class Counter {
 
     public int count() {
         this._countup();
-        return this.value % n;
+        return this.value;
     }
 
     public void reset() {

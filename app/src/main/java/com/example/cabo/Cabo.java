@@ -46,9 +46,10 @@ public class Cabo {
     }
 
     public int Turns() {
-        this.turn.count();
-
-        this.pcs.firePropertyChange(Cabo.TURN_CHANGE, null, (this.turn.getCount() - 1) % (this.players.size() - 1));
+        if(this.turn.count() == n){
+            this.turn.reset();
+        }
+        this.pcs.firePropertyChange(Cabo.TURN_CHANGE, null, this.turn.getCount());
         return this.turn.getCount();
 
     }
