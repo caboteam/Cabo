@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class playerLayout5 extends AppCompatActivity {
     Cabo game = new Cabo(5, 0);
     int order = 0;
-    boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13 = false;
+    boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13, swap_active = false;
     int discardCard, selected_card, other_card ,other_player, other_card_index, card_number = 0;
     ImageView card, card2;
     ArrayList<Integer> no_dim = new ArrayList<>();
@@ -345,6 +345,7 @@ public class playerLayout5 extends AppCompatActivity {
                         flip(card, getCard(n), 1, false);
 
                         choose_second = false;
+                        swap_active = true;
                     }
                 } else if((card_number / 4 == order && choose_second) || (card_number / 4 == order && keep_13)) {
                     final ImageView dummy1 = findViewById(R.id.deck_dummy);
@@ -418,7 +419,7 @@ public class playerLayout5 extends AppCompatActivity {
 
                 for(int i = order*4; i < order*4 + 4; i++){
                     ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
-                    flip(card, getCard(curHand.get(i - order)), 1, false);
+                    flip(card, getCard(curHand.get(i - order*4)), 1, false);
                 }
                 game.Turns();
                 order = (order + 1) % 5;
@@ -428,12 +429,12 @@ public class playerLayout5 extends AppCompatActivity {
                 test();
             } else if(pickCard && !pickCard_discard && view.getId() == R.id.discard_button_out){
                 System.out.println("Card discarded!");
-                if (powerCard){
+                if (powerCard && swap_active){
                     flip(card2, R.drawable.card_back, 1, false);
                     brightenCards();
                     keep_13 = false;
                     powerCard = false;
-                } else {
+                } else if(!powerCard) {
                     final ImageView discard = findViewById(R.id.discard_pile);
                     final ImageView dummy = findViewById(R.id.discard_dummy);
                     final ImageView imageView = findViewById(R.id.deck_dummy);
@@ -452,7 +453,7 @@ public class playerLayout5 extends AppCompatActivity {
                             imageView.setImageResource(R.drawable.card_back);
                         }
                     }, 3000);
-                }
+                } else return;
                 game.Turns();
                 order = (order + 1) % 5;
                 if(order == game.turn.getCount())
@@ -460,7 +461,7 @@ public class playerLayout5 extends AppCompatActivity {
                 discardCard = selected_card;
                 pickCard = false;
                 test();
-            } else if(pickCard && !pickCard_discard && view.getId() == R.id.power_button_out && selected_card >= 7) {
+            } else if(pickCard && !pickCard_discard && view.getId() == R.id.power_button_out && selected_card >= 7 && !powerCard) {
                 System.out.println("Card power used!");
 
                 disableAllButtons();
@@ -506,10 +507,12 @@ public class playerLayout5 extends AppCompatActivity {
                     }
                 }, 3000);
             } else if(pickCard && !pickCard_discard && view.getId() == R.id.keep_button_out) {
-                if (powerCard) {
+                if (powerCard && swap_active) {
                     System.out.println("Swapping Card!!");
                     keep_13 = true;
-                } else {
+                    disableAllButtons();
+                    pickCard = false;
+                } else if(!powerCard){
                     System.out.println("Card kept!");
                     no_dim.clear();
 
@@ -526,10 +529,9 @@ public class playerLayout5 extends AppCompatActivity {
                     imageView.animate().scaleX(1.5f).scaleY(1.5f).setDuration(400);
                     keep_card = true;
                     card_pick = true;
+                    disableAllButtons();
+                    pickCard = false;
                 }
-
-                disableAllButtons();
-                pickCard = false;
             }
         }
     }

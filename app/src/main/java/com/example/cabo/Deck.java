@@ -20,6 +20,8 @@ public class Deck {
             }
         }
         shuffle();
+//        this.deck.set(30, 13);
+//        this.deck.set(29, 11);
     }
 
     private void shuffle() {

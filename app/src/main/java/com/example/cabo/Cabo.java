@@ -36,7 +36,7 @@ public class Cabo {
             players.add(p);
         }
 
-        for (int i = n; i <= n + cpu; i++) {
+        for (int i = n; i < n + cpu; i++) {
             CPU c = new CPU(i, this, this.n);
             c.run();
             players.add(c);
