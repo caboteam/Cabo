@@ -1,15 +1,20 @@
 package com.example.cabo;
-
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class Player {
     private ArrayList<Integer> hand = new ArrayList<>();
     public int health = 100;
     public int order;
+    public boolean turn = false;
+    public final Cabo model;
+    public final boolean cpu = false;
 
-
-    public Player(int order) {
+    public Player(final int order, final Cabo model) {
         this.order = order;
+        this.model = model;
+        registerListener(this.order);
     }
 
     public void add_card(int value) {
@@ -56,4 +61,31 @@ public class Player {
         this.hand.set(index, value);
         return temp;
     }
+
+
+    private class TurnListener implements PropertyChangeListener {
+
+        private Player n;
+
+        public TurnListener(Player n) {
+            this.n = n;
+        }
+
+        @Override
+        public void propertyChange(PropertyChangeEvent evt) {
+            int propertyName = (int)evt.getNewValue();
+            System.out.println(propertyName);
+            if (propertyName == n.getOrder())
+                this.n.turn = true;
+            else
+                this.n.turn = false;
+        }
+
+    }
+
+    public void registerListener(int order) {
+        this.model.addPropertyChangeListener(Cabo.TURN_CHANGE, new TurnListener(this));
+    }
+
+
 }

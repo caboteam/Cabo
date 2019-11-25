@@ -1,5 +1,4 @@
 package com.example.cabo;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,9 +7,11 @@ public class Deck {
     public ArrayList<Integer> deck = new ArrayList<>();
     private ArrayList<Integer> inPlay = new ArrayList<>();
     private int count = 0;
+    private Cabo model;
 
-    public Deck() {
+    public Deck(Cabo model) {
         for (int val: VALUES) {
+            this.model = model;
             for (int i = 1; i <= 4; i++) {
                 if (i > 2 && (val == 0 || val == 13))
                     continue;
@@ -19,7 +20,6 @@ public class Deck {
             }
         }
         shuffle();
-        //this.deck.set(30, 13);
     }
 
     private void shuffle() {
@@ -35,6 +35,7 @@ public class Deck {
             this.deck.set(k, temp);
         }
     }
+
 
     public void deal(ArrayList<Player> players) {
         for (int i = 0; i < 4; i++) {
@@ -64,6 +65,7 @@ public class Deck {
         return this.count == 0;
     }
 
+
     public void print() {
         System.out.println("Cards in deck: " + Integer.toString(this.count));
         for (int card: this.deck) {
@@ -72,19 +74,23 @@ public class Deck {
         System.out.println("\n");
     }
 
-//    public static void main(String[] arg) {
-//        // Testing for creating a shuffled deck
-//        Deck temp = new Deck();
-//        temp.print();
+//	public static void main(String[] arg) {
+//		// Testing for creating a shuffled deck
+//		Deck temp = new Deck();
+//		temp.print();
 //
-//        // Testing for card draw
-//        int val;
-//        for (int i = 0; i < 52; i++) {
-//            val = temp.drawCard();
-//            System.out.println("Card Drawn: " + Integer.toString(val));
-//            System.out.println("Empty = " +  Boolean.toString(temp.isEmpty()));
-//            temp.print();
-//        }
-//        System.out.println();
-//    }
+//
+//		// Testing for card draw
+//		int val;
+//		for (int i = 0; i < 52; i++) {
+//			val = temp.drawCard();
+//			System.out.println("Card Drawn: " + Integer.toString(val));
+//			System.out.println("Empty = " +  Boolean.toString(temp.isEmpty()));
+//			temp.print();
+//		}
+//		System.out.println();
+//
+//
+//	}
+
 }
