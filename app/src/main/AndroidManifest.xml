@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/cabo_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".playerLayout6"
             android:screenOrientation="landscape"
@@ -19,7 +20,9 @@
             android:name=".playerLayout4"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
