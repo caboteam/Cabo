@@ -1,0 +1,31 @@
+package com.example.cabo;
+
+public class Counter {
+    private int value = 0;
+    private  int n;
+
+    public Counter(int n){
+        this.n = n;
+    }
+
+    private void _countup() {
+        this.value += 1;
+    }
+
+    public int count() {
+        this._countup();
+        return this.value % n;
+    }
+
+    public void reset() {
+        this.value = 0;
+    }
+
+    public int getCount() {
+        return this.value;
+    }
+
+    public void print() {
+        System.out.println(this.value);
+    }
+}
