@@ -9,9 +9,10 @@ public class Player {
     public int order;
     public boolean turn = false;
     public final Cabo model;
-    public final boolean cpu = false;
+    public boolean cpu;
 
     public Player(final int order, final Cabo model) {
+        this.cpu = false;
         this.order = order;
         this.model = model;
         registerListener(this.order);

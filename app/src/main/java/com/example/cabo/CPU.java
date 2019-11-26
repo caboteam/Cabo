@@ -11,10 +11,11 @@ public class CPU extends Player implements Runnable{
     private ArrayList<Integer> hand = new ArrayList<>();
     public int health = 100;
     public boolean turn = false;
-    public final boolean cpu = true;
+    public boolean cpu;
 
     public CPU(final int order, final Cabo model, final int n) {
         super(order, model);
+        this.cpu = true;
         this.memory = new int[n][4];
 
         for (int[] row: memory)

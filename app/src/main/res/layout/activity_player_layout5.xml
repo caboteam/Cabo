@@ -674,6 +674,55 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/stack_layout"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/stack_button_out"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="buttonClick"
+            android:tint="#800080"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/button_out" />
+
+        <ImageView
+            android:id="@+id/stack_button_in"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:tint="#800080"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/button_in" />
+
+        <TextView
+            android:id="@+id/stackText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Stack\nCards"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

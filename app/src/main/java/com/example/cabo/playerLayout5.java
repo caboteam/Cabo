@@ -8,27 +8,28 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
+//import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
+//import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.TranslateAnimation;
+//import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+//import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class playerLayout5 extends AppCompatActivity {
-    Cabo game = new Cabo(5, 0);
+    Cabo game = new Cabo(3, 2);
     int order = 0;
-    boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13, swap_active = false;
+    boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13, swap_active = false, stack_card = true;
     int discardCard, selected_card, other_card ,other_player, other_card_index, card_number = 0;
     ImageView card, card2;
     ArrayList<Integer> no_dim = new ArrayList<>();
@@ -36,7 +37,10 @@ public class playerLayout5 extends AppCompatActivity {
     public void test() {
         game.deck.print();
         for (int i = 0; i < 5; i++) {
-            System.out.print("Player " + (i + 1) + ": ");
+            if (game.players.get(i).cpu)
+                System.out.print("CPU " + (i + 1) + ": ");
+            else
+                System.out.print("Player " + (i + 1) + ": ");
             game.players.get(i).showHand();
             System.out.println();
         }
@@ -101,7 +105,6 @@ public class playerLayout5 extends AppCompatActivity {
         });
         oa1.start();
         oa1.setDuration(100);
-
     }
 
     private void disableAllButtons() {
@@ -131,7 +134,7 @@ public class playerLayout5 extends AppCompatActivity {
     public void pickCardDeck(View view) {
         if (game.turn.getCount() == order && !pickCard_discard && !pickCard){
             selected_card = game.deck.drawCard();
-            System.out.println(selected_card);
+            //System.out.println(selected_card);
             //game.deck.print();
             int change = getCard(selected_card);
             pickCard = true;
@@ -146,7 +149,7 @@ public class playerLayout5 extends AppCompatActivity {
 
     public  void  pickDiscardCard(View view) {
         if (game.turn.getCount() == order && !pickCard) {
-            System.out.println("DISCARD PILE CARD");
+            //System.out.println("DISCARD PILE CARD");
             pickCard_discard = true;
             keep_card = true;
             selected_card = discardCard;
@@ -160,7 +163,7 @@ public class playerLayout5 extends AppCompatActivity {
 
             no_dim.clear();
 
-            no_dim.add(0 + order*4);
+            no_dim.add(order*4);
             no_dim.add(1 + order*4);
             no_dim.add(2 + order*4);
             no_dim.add(3 + order*4);
@@ -214,6 +217,12 @@ public class playerLayout5 extends AppCompatActivity {
 
         if (game.turn.getCount() == order) {
 
+//            if (card_number / 4 == order  && stack_card) {
+//                RelativeLayout stack = findViewById(R.id.stack_layout);
+//                stack.setVisibility(stack.VISIBLE);
+//                card.setColorFilter(Color.argb(150, 128, 0, 128));
+//            }
+
             if (keep_card && (card_number / 4) == order) {
                 final int card_change, final_card, n;
 
@@ -266,6 +275,7 @@ public class playerLayout5 extends AppCompatActivity {
                         }
                     }, 1500);
                 }
+
                 brightenCards();
                 card_pick = false;
                 keep_card = false;
@@ -279,7 +289,7 @@ public class playerLayout5 extends AppCompatActivity {
                 if (selected_card == 7 || selected_card == 8) {
                     if(card_number / 4 == order){
                         int n = game.players.get(order).getHand().get(card_number % 4);
-                        System.out.println("Card: " + n);
+                        //System.out.println("Card: " + n);
                         int change = getCard(n);
                         flip(card, change, 1, false);
                         Handler handler = new Handler();
@@ -301,7 +311,7 @@ public class playerLayout5 extends AppCompatActivity {
                 } else if(selected_card == 9 || selected_card == 10) {
                     if(card_number / 4 != order) {
                         int n = game.players.get((card_number/4)).getHand().get(card_number % 4);
-                        System.out.println("Card: " + n);
+                        //System.out.println("Card: " + n);
                         int change = getCard(n);
                         flip(card, change, 1, false);
                         Handler handler = new Handler();
@@ -326,7 +336,7 @@ public class playerLayout5 extends AppCompatActivity {
                     other_card = game.players.get((card_number / 4)).getHand().get(card_number % 4);
                     other_card_index = card_number % 4;
                     choose_second = true;
-                    System.out.println(other_card);
+                    //System.out.println(other_card);
                     no_dim.clear();
                     no_dim.add(card_number);
                     dimCards(no_dim);
@@ -354,8 +364,9 @@ public class playerLayout5 extends AppCompatActivity {
                     int first_card = game.players.get(order).getHand().get(card_number % 4);
                     game.players.get(order).swap(card_number % 4, other_card);
                     game.players.get(other_player).swap(other_card_index, first_card);
+
                     dummy2.setImageResource(R.drawable.card_back);
-                    System.out.println(4 * (other_player) + other_card_index);
+                    //System.out.println(4 * (other_player) + other_card_index);
                     no_dim.clear();
                     no_dim.add(card_number);
                     no_dim.add(4 * (other_player) + other_card_index);
@@ -367,7 +378,7 @@ public class playerLayout5 extends AppCompatActivity {
                     dummy1.setColorFilter(Color.argb(0, 0, 0, 0));
                     dummy2.setColorFilter(Color.argb(0, 0, 0, 0));
 
-                    System.out.println("GOES HERE " + first_card);
+                    //System.out.println("GOES HERE " + first_card);
 
                     translate(dummy1, card, 0);
                     translate(dummy2, card2, 0);
@@ -469,7 +480,7 @@ public class playerLayout5 extends AppCompatActivity {
                 no_dim.clear();
 
                 if(selected_card == 7 || selected_card == 8){
-                    no_dim.add(0 + order*4);
+                    no_dim.add(order*4);
                     no_dim.add(1 + order*4);
                     no_dim.add(2 + order*4);
                     no_dim.add(3 + order*4);
@@ -516,7 +527,7 @@ public class playerLayout5 extends AppCompatActivity {
                     System.out.println("Card kept!");
                     no_dim.clear();
 
-                    no_dim.add(0 + order*4);
+                    no_dim.add(order*4);
                     no_dim.add(1 + order*4);
                     no_dim.add(2 + order*4);
                     no_dim.add(3 + order*4);
@@ -586,6 +597,5 @@ public class playerLayout5 extends AppCompatActivity {
         }, 6000);
 
         test();
-//        }
     }
 }
