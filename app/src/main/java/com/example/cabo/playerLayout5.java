@@ -34,6 +34,12 @@ public class playerLayout5 extends AppCompatActivity {
     ImageView card, card2;
     ArrayList<Integer> no_dim = new ArrayList<>();
 
+
+    public void CPUController() {
+        View temp = findViewById(R.id.cabo_button_out);
+        temp.performClick();
+    }
+
     public void test() {
         game.deck.print();
         for (int i = 0; i < 5; i++) {
@@ -282,8 +288,12 @@ public class playerLayout5 extends AppCompatActivity {
                 disableAllButtons();
                 game.Turns();
                 order = (order + 1) % 5;
-                if(order == game.turn.getCount())
+                if(order == game.turn.getCount()) {
                     enableAllButtons();
+                    if (game.players.get(order).cpu == true) {
+                        CPUController();
+                    }
+                }
                 test();
             } else if(powerCard) {
                 if (selected_card == 7 || selected_card == 8) {
@@ -302,8 +312,12 @@ public class playerLayout5 extends AppCompatActivity {
                         game.Turns();
                         order = (order + 1) % 5;
                         test();
-                        if(order == game.turn.getCount())
+                        if(order == game.turn.getCount()) {
                             enableAllButtons();
+                            if (game.players.get(order).cpu == true) {
+                                CPUController();
+                            }
+                        }
                         powerCard = false;
                         brightenCards();
                         pickCard = false;
@@ -323,8 +337,12 @@ public class playerLayout5 extends AppCompatActivity {
                         }, 2500);
                         game.Turns();
                         order = (order + 1) % 5;
-                        if(order == game.turn.getCount())
+                        if(order == game.turn.getCount()) {
                             enableAllButtons();
+                            if (game.players.get(order).cpu == true) {
+                                CPUController();
+                            }
+                        }
                         test();
                         powerCard = false;
                         pickCard = false;
@@ -400,8 +418,12 @@ public class playerLayout5 extends AppCompatActivity {
                     keep_13 = false;
                     game.Turns();
                     order = (order + 1) % 5;
-                    if(order == game.turn.getCount())
+                    if(order == game.turn.getCount()) {
                         enableAllButtons();
+                        if (game.players.get(order).cpu == true) {
+                            CPUController();
+                        }
+                    }
                     choose_second = false;
                     powerCard = false;
                     pickCard = false;
@@ -434,8 +456,12 @@ public class playerLayout5 extends AppCompatActivity {
                 }
                 game.Turns();
                 order = (order + 1) % 5;
-                if(order == game.turn.getCount())
+                if(order == game.turn.getCount()) {
                     enableAllButtons();
+                    if (game.players.get(order).cpu == true) {
+                        CPUController();
+                    }
+                }
                 pickCard = false;
                 test();
             } else if(pickCard && !pickCard_discard && view.getId() == R.id.discard_button_out){
@@ -467,8 +493,12 @@ public class playerLayout5 extends AppCompatActivity {
                 } else return;
                 game.Turns();
                 order = (order + 1) % 5;
-                if(order == game.turn.getCount())
+                if(order == game.turn.getCount()) {
                     enableAllButtons();
+                    if (game.players.get(order).cpu == true) {
+                        CPUController();
+                    }
+                }
                 discardCard = selected_card;
                 pickCard = false;
                 test();

@@ -34,12 +34,13 @@ public class Cabo {
         for (int i = 0; i < n; i++) {
             Player p = new Player(i, this);
             players.add(p);
+            System.out.println(i + " PLAYER " + this.players.get(i).cpu);
         }
 
         for (int i = n; i < n + cpu; i++) {
             CPU c = new CPU(i, this, this.n);
-            c.run();
             players.add(c);
+            System.out.println(i + " CPU " + this.players.get(i).cpu);
         }
 
         this.deck.deal(players);

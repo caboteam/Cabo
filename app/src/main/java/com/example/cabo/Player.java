@@ -18,6 +18,15 @@ public class Player {
         registerListener(this.order);
     }
 
+    public int getTotal() {
+        int count = 0;
+        for (int i = 0; i < this.hand.size() - 1; i++) {
+            count += this.hand.get(i);
+        }
+        count += this.hand.get(this.hand.size() - 1);
+        return count;
+    }
+
     public void add_card(int value) {
         this.hand.add(value);
     }
