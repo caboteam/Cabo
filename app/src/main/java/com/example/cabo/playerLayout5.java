@@ -402,10 +402,6 @@ public class playerLayout5 extends AppCompatActivity {
                 }
 
                 brightenCards();
-                card_pick = false;
-                keep_card = false;
-                match_card = true;
-                disableAllButtons();
                 game.Turns();
                 order = (order + 1) % 5;
 
@@ -416,6 +412,10 @@ public class playerLayout5 extends AppCompatActivity {
                         CPUController();
                     }
                 }
+                card_pick = false;
+                keep_card = false;
+                match_card = true;
+                disableAllButtons();
                 test();
             } else if(powerCard) {
                 if (selected_card == 7 || selected_card == 8) {
@@ -778,9 +778,9 @@ public class playerLayout5 extends AppCompatActivity {
             public void run() {
                 flip(card1, R.drawable.card_back, 1, false);
                 flip(card2, R.drawable.card_back, 1, false);
-                highlightCurrentPlayer();
             }
         }, 6000);
+        highlightCurrentPlayer();
 
         test();
     }
