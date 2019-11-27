@@ -35,6 +35,10 @@ public class Player {
         return this.order;
     }
 
+    public int getValue (int index) {
+        return this.hand.get(index);
+    }
+
     public int length() {
         return this.hand.size();
     }
@@ -72,6 +76,10 @@ public class Player {
         return temp;
     }
 
+
+    public int findLargest() {
+    return 0;
+    }
 
     private class TurnListener implements PropertyChangeListener {
 

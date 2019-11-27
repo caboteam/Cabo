@@ -10,13 +10,15 @@
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/CPU.java" line="3" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="974412e9-754a-466d-8ba7-2ebe19beb6ff" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/rahul.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cabo/CPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cabo/CPU.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cabo/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cabo/Deck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cabo/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cabo/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cabo/playerLayout5.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cabo/playerLayout5.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_player_layout5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_player_layout5.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -50,7 +52,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
+            <state relative-caret-position="-39">
               <caret line="30" column="36" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -62,8 +64,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/Deck.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="71">
-              <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+            <state relative-caret-position="85">
+              <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -77,11 +79,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/Cabo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="40" column="27" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
+            <state relative-caret-position="68">
+              <caret line="27" column="67" lean-forward="true" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -89,8 +91,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="204">
+              <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -98,8 +100,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/CPU.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="63" column="13" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+            <state relative-caret-position="204">
+              <caret line="15" column="61" lean-forward="true" selection-start-line="15" selection-start-column="61" selection-end-line="15" selection-end-column="61" />
             </state>
           </provider>
         </entry>
@@ -107,31 +109,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_player_layout5.xml">
           <provider editor-type-id="text-editor">
-            <state relative-caret-position="339">
+            <state relative-caret-position="493">
               <caret line="707" column="33" selection-start-line="707" selection-start-column="33" selection-end-line="707" selection-end-column="33" />
             </state>
           </provider>
           <provider selected="true" editor-type-id="android-designer2" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/playerLayout5.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="389" column="47" lean-forward="true" selection-start-line="389" selection-start-column="47" selection-end-line="389" selection-end-column="47" />
+            <state relative-caret-position="61">
+              <caret line="39" column="40" lean-forward="true" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
               <folding>
-                <element signature="e#1593#1724#0" expanded="true" />
-                <element signature="e#1723#1724#0" expanded="true" />
-                <element signature="e#3430#3558#0" expanded="true" />
-                <element signature="e#3557#3558#0" expanded="true" />
-                <element signature="e#4335#5152#0" expanded="true" />
-                <element signature="e#5151#5152#0" expanded="true" />
-                <element signature="e#8374#8680#0" expanded="true" />
-                <element signature="e#8679#8680#0" expanded="true" />
-                <element signature="e#8724#8942#0" expanded="true" />
-                <element signature="e#8941#8942#0" expanded="true" />
-                <element signature="e#19085#19301#0" expanded="true" />
-                <element signature="e#19300#19301#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#10115#10385#0" expanded="true" />
+                <element signature="e#10384#10385#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -148,25 +141,13 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+      <find>swap_active</find>
       <find>hand</find>
       <find>System.out.println</find>
       <find>keep_13</find>
       <find>discard_pile</find>
-      <find>game.turns</find>
       <find>discard_dummy</find>
-      <find>deck_dummy</find>
-      <find>stack_card</find>
-      <find>game.Turns();</find>
-      <find>highlightCurrentPlayer</find>
-      <find>dimCards</find>
-      <find>game.Turns</find>
-      <find>brightenCards</find>
-      <find>bright</find>
-      <find>swap_active</find>
     </findStrings>
-    <replaceStrings>
-      <replace>match_card</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -178,19 +159,18 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cabo/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cabo/Counter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cabo/Player.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cabo/Cabo.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cabo/CPU.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_player_layout5.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cabo/playerLayout5.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cabo/Deck.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cabo/CPU.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cabo/Player.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cabo/playerLayout5.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="553" />
-    <option name="y" value="-9" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
   </component>
@@ -199,18 +179,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane" />
       <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_3_XL_API_29_2" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-11-27T00:50:19.387Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="DXU7N18A22000419" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-11-24T08:35:43.095Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../WIP/Cabo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
@@ -310,21 +290,12 @@
     </task>
     <servers />
   </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-  </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" weight="0.19865772" />
+      <window_info content_ui="combo" id="Project" order="1" weight="0.1932886" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -333,15 +304,15 @@
       <window_info id="Resources Explorer" order="7" weight="0.3295302" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Run" order="0" weight="0.3286119" />
-      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49932885" weight="0.70113313" />
-      <window_info anchor="bottom" id="TODO" order="2" weight="0.3286119" />
+      <window_info anchor="bottom" id="Logcat" order="1" weight="0.67280453" />
+      <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.3286119" />
-      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.50067115" side_tool="true" weight="0.70113313" />
+      <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Version Control" order="6" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.3286119" />
+      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
-      <window_info anchor="bottom" id="Find" order="9" />
+      <window_info anchor="right" id="Hierarchy" weight="0.3295302" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" weight="0.3295302" />
@@ -349,7 +320,6 @@
       <window_info anchor="right" id="Preview" order="4" weight="0.29731545" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="right" id="Assistant" order="6" weight="0.3295302" />
-      <window_info anchor="right" id="Hierarchy" order="7" weight="0.3295302" />
     </layout>
   </component>
   <component name="editorHistoryManager">
@@ -454,10 +424,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
+        <state relative-caret-position="-39">
           <caret line="30" column="36" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/Deck.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_player_layout5.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="707" column="33" selection-start-line="707" selection-start-column="33" selection-end-line="707" selection-end-column="33" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/playerLayout5.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="61">
+          <caret line="39" column="40" lean-forward="true" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#10115#10385#0" expanded="true" />
+            <element signature="e#10384#10385#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -471,58 +468,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/CPU.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="63" column="13" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+        <state relative-caret-position="204">
+          <caret line="15" column="61" lean-forward="true" selection-start-line="15" selection-start-column="61" selection-end-line="15" selection-end-column="61" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_player_layout5.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="707" column="33" selection-start-line="707" selection-start-column="33" selection-end-line="707" selection-end-column="33" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="204">
+          <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/Cabo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="40" column="27" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/Deck.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/playerLayout5.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="389" column="47" lean-forward="true" selection-start-line="389" selection-start-column="47" selection-end-line="389" selection-end-column="47" />
-          <folding>
-            <element signature="e#1593#1724#0" expanded="true" />
-            <element signature="e#1723#1724#0" expanded="true" />
-            <element signature="e#3430#3558#0" expanded="true" />
-            <element signature="e#3557#3558#0" expanded="true" />
-            <element signature="e#4335#5152#0" expanded="true" />
-            <element signature="e#5151#5152#0" expanded="true" />
-            <element signature="e#8374#8680#0" expanded="true" />
-            <element signature="e#8679#8680#0" expanded="true" />
-            <element signature="e#8724#8942#0" expanded="true" />
-            <element signature="e#8941#8942#0" expanded="true" />
-            <element signature="e#19085#19301#0" expanded="true" />
-            <element signature="e#19300#19301#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="68">
+          <caret line="27" column="67" lean-forward="true" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
         </state>
       </provider>
     </entry>
