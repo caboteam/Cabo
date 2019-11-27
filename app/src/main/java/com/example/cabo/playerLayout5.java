@@ -165,7 +165,7 @@ public class playerLayout5 extends AppCompatActivity {
         }
     }
 
-    public void highlightCurrentPlayer() {
+    public void highlightCurrentPlayer(int n) {
         no_dim.clear();
         no_dim.add(order*4);
         no_dim.add(1 + order*4);
@@ -180,7 +180,7 @@ public class playerLayout5 extends AppCompatActivity {
             public void run() {
                 dimCards(no_dim);
             }
-        }, 2500);
+        }, n);
     }
 
     private synchronized void translate(View viewToMove, View target, long n) {
@@ -411,7 +411,7 @@ public class playerLayout5 extends AppCompatActivity {
                 match_card = true;
                 disableAllButtons();
                 if(order == game.turn.getCount()) {
-                    highlightCurrentPlayer();
+                    highlightCurrentPlayer(2500);
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
                         CPUController();
@@ -439,7 +439,7 @@ public class playerLayout5 extends AppCompatActivity {
                         brightenCards();
                         pickCard = false;
                         if(order == game.turn.getCount()) {
-                            highlightCurrentPlayer();
+                            highlightCurrentPlayer(2500);
                             enableAllButtons();
                             if (game.players.get(order).cpu == true) {
                                 CPUController();
@@ -468,7 +468,7 @@ public class playerLayout5 extends AppCompatActivity {
                         pickCard = false;
                         brightenCards();
                         if(order == game.turn.getCount()) {
-                            highlightCurrentPlayer();
+                            highlightCurrentPlayer(2500);
                             enableAllButtons();
                             if (game.players.get(order).cpu == true) {
                                 CPUController();
@@ -528,6 +528,9 @@ public class playerLayout5 extends AppCompatActivity {
                     translate(dummy1, card, 0);
                     translate(dummy2, card2, 0);
 
+                    card.setVisibility(card.INVISIBLE);
+                    card2.setVisibility(card2.INVISIBLE);
+
                     translate(dummy1, card2, 2000);
                     translate(dummy2, card, 2000);
 
@@ -535,6 +538,8 @@ public class playerLayout5 extends AppCompatActivity {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            card.setVisibility(card.VISIBLE);
+                            card2.setVisibility(card2.VISIBLE);
                             translate(dummy1, findViewById(R.id.deck), 0);
                             translate(dummy2, findViewById(R.id.discard_pile), 0);
                             dummy2.setImageResource(getCard(discardCard));
@@ -550,14 +555,7 @@ public class playerLayout5 extends AppCompatActivity {
                     powerCard = false;
                     pickCard = false;
                     if(order == game.turn.getCount()) {
-
-                        Handler handler2 = new Handler();
-                        handler2.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                highlightCurrentPlayer();
-                            }
-                        }, 4000);
+                        highlightCurrentPlayer(3500);
 
                         enableAllButtons();
                         if (game.players.get(order).cpu == true) {
@@ -607,7 +605,7 @@ public class playerLayout5 extends AppCompatActivity {
                 match_card = true;
                 pickCard = false;
                 if(order == game.turn.getCount()) {
-                    highlightCurrentPlayer();
+                    highlightCurrentPlayer(2500);
 
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
@@ -649,7 +647,7 @@ public class playerLayout5 extends AppCompatActivity {
                 discardCard = selected_card;
                 pickCard = false;
                 if(order == game.turn.getCount()) {
-                    highlightCurrentPlayer();
+                    highlightCurrentPlayer(750);
 
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
@@ -781,7 +779,7 @@ public class playerLayout5 extends AppCompatActivity {
                 flip(card2, R.drawable.card_back, 1, false);
             }
         }, 6000);
-        highlightCurrentPlayer();
+        highlightCurrentPlayer(2500);
 
         test();
     }
