@@ -93,7 +93,13 @@ public class playerLayout5 extends AppCompatActivity {
         for(int i = 20; i < 24; i++) {
             no_dim.add(i);
         }
-        dimCards(no_dim);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dimCards(no_dim);
+            }
+        }, 2500);
     }
 
     private void translate(View viewToMove, View target, long n) {
@@ -247,20 +253,20 @@ public class playerLayout5 extends AppCompatActivity {
 
         if (game.turn.getCount() == order) {
 
-            if (card_number / 4 == order  && match_card) {
-                if(cards_to_match.contains(card_number)){
-                    card.setColorFilter(Color.argb(0, 0, 0, 0));
-                    cards_to_match.remove(new Integer(card_number));
-                } else {
-                    RelativeLayout stack = findViewById(R.id.stack_layout);
-                    stack.setVisibility(stack.VISIBLE);
-                    cards_to_match.add(card_number);
-                    card.setColorFilter(Color.argb(150, 128, 0, 128));
-                }
-                for(int i : cards_to_match){
-                    System.out.print(i + " ");
-                } System.out.println();
-            }
+//            if (card_number / 4 == order  && match_card) {
+//                if(cards_to_match.contains(card_number)){
+//                    card.setColorFilter(Color.argb(0, 0, 0, 0));
+//                    cards_to_match.remove(new Integer(card_number));
+//                } else {
+//                    RelativeLayout stack = findViewById(R.id.stack_layout);
+//                    stack.setVisibility(stack.VISIBLE);
+//                    cards_to_match.add(card_number);
+//                    card.setColorFilter(Color.argb(150, 128, 0, 128));
+//                }
+//                for(int i : cards_to_match){
+//                    System.out.print(i + " ");
+//                } System.out.println();
+//            }
 
             if (keep_card && (card_number / 4) == order) {
                 final int card_change, final_card, n;
@@ -314,6 +320,7 @@ public class playerLayout5 extends AppCompatActivity {
                         }
                     }, 1500);
                 }
+
 
                 brightenCards();
                 card_pick = false;
@@ -390,7 +397,7 @@ public class playerLayout5 extends AppCompatActivity {
                         powerCard = false;
                         pickCard = false;
                     }
-                } else if((selected_card == 11 || selected_card == 12 || selected_card == 13) && card_number / 4 != order && !choose_second) {
+                } else if((selected_card == 11 || selected_card == 12 || selected_card == 13) && card_number / 4 != order && !choose_second && !swap_active) {
                     card2 = card;
                     other_player = card_number / 4;
                     other_card = game.players.get((card_number / 4)).getHand().get(card_number % 4);
@@ -487,17 +494,18 @@ public class playerLayout5 extends AppCompatActivity {
 
     public void buttonClick(View view) {
         if (game.turn.getCount() == order) {
-            if(match_card) {
-                while(cards_to_match.isEmpty()) {
-                    if(!game.players.get(order).getHand().contains(cards_to_match.get(0)))
-                        break;
-                }
-                if(cards_to_match.isEmpty()){
-                    System.out.println("MATCH CARDS SUCCESS!!");
-                } else {
-                    System.out.println("MATCH CARDS FAILED!!");
-                }
-            } else if(!pickCard && !pickCard_discard && view.getId() == R.id.cabo_button_out){
+//            if(match_card) {
+//                while(cards_to_match.isEmpty()) {
+//                    if(!game.players.get(order).getHand().contains(cards_to_match.get(0)))
+//                        break;
+//                }
+//                if(cards_to_match.isEmpty()){
+//                    System.out.println("MATCH CARDS SUCCESS!!");
+//                } else {
+//                    System.out.println("MATCH CARDS FAILED!!");
+//                }
+//            }
+            if(!pickCard && !pickCard_discard && view.getId() == R.id.cabo_button_out){
                 final TextView textView = findViewById(R.id.call_cabo);
                 textView.animate().alpha(100).setDuration(6000);
                 disableAllButtons();
@@ -536,6 +544,7 @@ public class playerLayout5 extends AppCompatActivity {
                     brightenCards();
                     keep_13 = false;
                     powerCard = false;
+                    swap_active = false;
                 } else if(!powerCard) {
                     final ImageView discard = findViewById(R.id.discard_pile);
                     final ImageView dummy = findViewById(R.id.discard_dummy);
@@ -621,6 +630,7 @@ public class playerLayout5 extends AppCompatActivity {
                     keep_13 = true;
                     disableAllButtons();
                     pickCard = false;
+                    swap_active = false;
                 } else if(!powerCard){
                     System.out.println("Card kept!");
                     no_dim.clear();
