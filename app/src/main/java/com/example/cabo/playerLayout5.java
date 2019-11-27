@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class playerLayout5 extends AppCompatActivity {
+    //BOO
     Cabo game = new Cabo(1, 4);
     int order = 0;
     boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13, swap_active = false, match_card = true;
