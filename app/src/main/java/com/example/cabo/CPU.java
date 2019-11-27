@@ -61,6 +61,13 @@ public class CPU extends Player {
         return temp;
     }
 
+    @Override
+    public int swap(int index, int value){
+        int temp = this.memory[this.order][index];
+        this.memory[this.order][index] = value;
+        return temp;
+    }
+
 
     // First thing is whether to call cabo
     //Call if less than 5 or 6 (low values)

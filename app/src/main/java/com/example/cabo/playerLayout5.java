@@ -21,23 +21,30 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 //import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-//import android.widget.RelativeLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class playerLayout5 extends AppCompatActivity {
-    Cabo game = new Cabo(3, 2);
+    Cabo game = new Cabo(5, 0);
     int order = 0;
-    boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13, swap_active = false, stack_card = true;
-    int discardCard, selected_card, other_card ,other_player, other_card_index, card_number = 0;
+    boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13, swap_active = false, match_card = true;
+    int discardCard, selected_card, other_card, other_player, other_card_index, card_number = 0;
     ImageView card, card2;
     ArrayList<Integer> no_dim = new ArrayList<>();
-
+    ArrayList<Integer> cards_to_match = new ArrayList<>();
 
     public void CPUController() {
-        View temp = findViewById(R.id.cabo_button_out);
-        temp.performClick();
+        final View temp = findViewById(R.id.cabo_button_out);
+        System.out.println("CPU's TURN");
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                temp.performClick();
+            }
+        }, 1500);
     }
 
     public void test() {
@@ -62,8 +69,8 @@ public class playerLayout5 extends AppCompatActivity {
     }
 
     private void dimCards(ArrayList<Integer> no_dim) {
-        for(int i = 0; i < 24; i++) {
-            if(!no_dim.contains(i)){
+        for (int i = 0; i < 24; i++) {
+            if (!no_dim.contains(i)) {
                 ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
                 card.setColorFilter(Color.argb(150, 0, 0, 0));
             }
@@ -75,6 +82,18 @@ public class playerLayout5 extends AppCompatActivity {
             ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
             card.setColorFilter(Color.argb(0, 0, 0, 0));
         }
+    }
+
+    public void highlightCurrentPlayer() {
+        no_dim.clear();
+        no_dim.add(order*4);
+        no_dim.add(1 + order*4);
+        no_dim.add(2 + order*4);
+        no_dim.add(3 + order*4);
+        for(int i = 20; i < 24; i++) {
+            no_dim.add(i);
+        }
+        dimCards(no_dim);
     }
 
     private void translate(View viewToMove, View target, long n) {
@@ -140,6 +159,7 @@ public class playerLayout5 extends AppCompatActivity {
     public void pickCardDeck(View view) {
         if (game.turn.getCount() == order && !pickCard_discard && !pickCard){
             selected_card = game.deck.drawCard();
+            brightenCards();
             //System.out.println(selected_card);
             //game.deck.print();
             int change = getCard(selected_card);
@@ -150,12 +170,14 @@ public class playerLayout5 extends AppCompatActivity {
             final ImageView imageView = findViewById(R.id.deck_dummy);
             //imageView.setVisibility(imageView.VISIBLE);
             flip(imageView, change, 3, true);
+            match_card = false;
         }
     }
 
     public  void  pickDiscardCard(View view) {
         if (game.turn.getCount() == order && !pickCard) {
             //System.out.println("DISCARD PILE CARD");
+            brightenCards();
             pickCard_discard = true;
             keep_card = true;
             selected_card = discardCard;
@@ -175,6 +197,8 @@ public class playerLayout5 extends AppCompatActivity {
             no_dim.add(3 + order*4);
 
             dimCards(no_dim);
+
+            match_card = false;
         }
     }
 
@@ -223,11 +247,20 @@ public class playerLayout5 extends AppCompatActivity {
 
         if (game.turn.getCount() == order) {
 
-//            if (card_number / 4 == order  && stack_card) {
-//                RelativeLayout stack = findViewById(R.id.stack_layout);
-//                stack.setVisibility(stack.VISIBLE);
-//                card.setColorFilter(Color.argb(150, 128, 0, 128));
-//            }
+            if (card_number / 4 == order  && match_card) {
+                if(cards_to_match.contains(card_number)){
+                    card.setColorFilter(Color.argb(0, 0, 0, 0));
+                    cards_to_match.remove(new Integer(card_number));
+                } else {
+                    RelativeLayout stack = findViewById(R.id.stack_layout);
+                    stack.setVisibility(stack.VISIBLE);
+                    cards_to_match.add(card_number);
+                    card.setColorFilter(Color.argb(150, 128, 0, 128));
+                }
+                for(int i : cards_to_match){
+                    System.out.print(i + " ");
+                } System.out.println();
+            }
 
             if (keep_card && (card_number / 4) == order) {
                 final int card_change, final_card, n;
@@ -285,10 +318,13 @@ public class playerLayout5 extends AppCompatActivity {
                 brightenCards();
                 card_pick = false;
                 keep_card = false;
+                match_card = true;
                 disableAllButtons();
                 game.Turns();
                 order = (order + 1) % 5;
                 if(order == game.turn.getCount()) {
+                    highlightCurrentPlayer();
+
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
                         CPUController();
@@ -312,14 +348,17 @@ public class playerLayout5 extends AppCompatActivity {
                         game.Turns();
                         order = (order + 1) % 5;
                         test();
+                        brightenCards();
                         if(order == game.turn.getCount()) {
+                            highlightCurrentPlayer();
+
                             enableAllButtons();
                             if (game.players.get(order).cpu == true) {
                                 CPUController();
                             }
                         }
+                        match_card = true;
                         powerCard = false;
-                        brightenCards();
                         pickCard = false;
                     }
                 } else if(selected_card == 9 || selected_card == 10) {
@@ -337,16 +376,19 @@ public class playerLayout5 extends AppCompatActivity {
                         }, 2500);
                         game.Turns();
                         order = (order + 1) % 5;
+                        brightenCards();
                         if(order == game.turn.getCount()) {
+                            highlightCurrentPlayer();
+
                             enableAllButtons();
                             if (game.players.get(order).cpu == true) {
                                 CPUController();
                             }
                         }
                         test();
+                        match_card = true;
                         powerCard = false;
                         pickCard = false;
-                        brightenCards();
                     }
                 } else if((selected_card == 11 || selected_card == 12 || selected_card == 13) && card_number / 4 != order && !choose_second) {
                     card2 = card;
@@ -413,17 +455,27 @@ public class playerLayout5 extends AppCompatActivity {
                             dummy2.setImageResource(getCard(discardCard));
                             brightenCards();
                         }
-                    }, 4000);
+                    }, 3500);
 
                     keep_13 = false;
                     game.Turns();
                     order = (order + 1) % 5;
                     if(order == game.turn.getCount()) {
+
+                        Handler handler2 = new Handler();
+                        handler2.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                highlightCurrentPlayer();
+                            }
+                        }, 4000);
+
                         enableAllButtons();
                         if (game.players.get(order).cpu == true) {
                             CPUController();
                         }
                     }
+                    match_card = true;
                     choose_second = false;
                     powerCard = false;
                     pickCard = false;
@@ -435,7 +487,17 @@ public class playerLayout5 extends AppCompatActivity {
 
     public void buttonClick(View view) {
         if (game.turn.getCount() == order) {
-            if(!pickCard && !pickCard_discard && view.getId() == R.id.cabo_button_out){
+            if(match_card) {
+                while(cards_to_match.isEmpty()) {
+                    if(!game.players.get(order).getHand().contains(cards_to_match.get(0)))
+                        break;
+                }
+                if(cards_to_match.isEmpty()){
+                    System.out.println("MATCH CARDS SUCCESS!!");
+                } else {
+                    System.out.println("MATCH CARDS FAILED!!");
+                }
+            } else if(!pickCard && !pickCard_discard && view.getId() == R.id.cabo_button_out){
                 final TextView textView = findViewById(R.id.call_cabo);
                 textView.animate().alpha(100).setDuration(6000);
                 disableAllButtons();
@@ -457,11 +519,14 @@ public class playerLayout5 extends AppCompatActivity {
                 game.Turns();
                 order = (order + 1) % 5;
                 if(order == game.turn.getCount()) {
+                    highlightCurrentPlayer();
+
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
                         CPUController();
                     }
                 }
+                match_card = true;
                 pickCard = false;
                 test();
             } else if(pickCard && !pickCard_discard && view.getId() == R.id.discard_button_out){
@@ -489,16 +554,19 @@ public class playerLayout5 extends AppCompatActivity {
                             translate(imageView, back, 0);
                             imageView.setImageResource(R.drawable.card_back);
                         }
-                    }, 3000);
+                    }, 600);
                 } else return;
                 game.Turns();
                 order = (order + 1) % 5;
                 if(order == game.turn.getCount()) {
+                    highlightCurrentPlayer();
+
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
                         CPUController();
                     }
                 }
+                match_card = true;
                 discardCard = selected_card;
                 pickCard = false;
                 test();
@@ -546,7 +614,7 @@ public class playerLayout5 extends AppCompatActivity {
                         translate(imageView, back, 0);
                         imageView.setImageResource(R.drawable.card_back);
                     }
-                }, 3000);
+                }, 500);
             } else if(pickCard && !pickCard_discard && view.getId() == R.id.keep_button_out) {
                 if (powerCard && swap_active) {
                     System.out.println("Swapping Card!!");
@@ -623,6 +691,7 @@ public class playerLayout5 extends AppCompatActivity {
             public void run() {
                 flip(card1, R.drawable.card_back, 1, false);
                 flip(card2, R.drawable.card_back, 1, false);
+                highlightCurrentPlayer();
             }
         }, 6000);
 
