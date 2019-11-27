@@ -29,7 +29,7 @@ import java.util.Random;
 
 public class playerLayout5 extends AppCompatActivity {
     //BOO
-    Cabo game = new Cabo(1, 4);
+    Cabo game = new Cabo(5, 0);
     int order = 0;
     boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13, swap_active = false, match_card = true;
     int discardCard, selected_card, other_card, other_player, other_card_index, card_number = 0;
@@ -406,6 +406,10 @@ public class playerLayout5 extends AppCompatActivity {
                 game.Turns();
                 order = (order + 1) % 5;
 
+                card_pick = false;
+                keep_card = false;
+                match_card = true;
+                disableAllButtons();
                 if(order == game.turn.getCount()) {
                     highlightCurrentPlayer();
                     enableAllButtons();
@@ -413,10 +417,6 @@ public class playerLayout5 extends AppCompatActivity {
                         CPUController();
                     }
                 }
-                card_pick = false;
-                keep_card = false;
-                match_card = true;
-                disableAllButtons();
                 test();
             } else if(powerCard) {
                 if (selected_card == 7 || selected_card == 8) {
