@@ -1,9 +1,11 @@
 package com.example.cabo;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Deck {
     private final static int[] VALUES = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,12,13};
+    public final static int[] POWER = {7,8,9,10,11,12,13};
     public ArrayList<Integer> deck = new ArrayList<>();
     private ArrayList<Integer> inPlay = new ArrayList<>();
     private int count = 0;
@@ -20,10 +22,15 @@ public class Deck {
             }
         }
         shuffle();
-        this.deck.set(30, 12);
-        this.deck.set(29, 11);
-        this.deck.set(28, 11);
+        this.deck.set(30, 11);
+        this.deck.set(29, 1);
+        this.deck.set(28, 1);
+        this.deck.set(27, 1);
+        this.deck.set(26, 1);
+        this.deck.set(25, 1);
+        this.deck.set(24, 1);
     }
+
 
     private void shuffle() {
         int j, k, temp;
