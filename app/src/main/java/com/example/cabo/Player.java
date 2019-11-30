@@ -10,6 +10,7 @@ public class Player {
     public boolean turn = false;
     public final Cabo model;
     public boolean cpu;
+    public boolean cabo = false;
 
     public Player(final int order, final Cabo model) {
         this.cpu = false;

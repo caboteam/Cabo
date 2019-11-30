@@ -11,6 +11,7 @@ import android.content.Intent;
 //import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -24,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -31,10 +34,11 @@ public class playerLayout5 extends AppCompatActivity {
     //BOO
     Cabo game = new Cabo(5, 0);
     int order = 0;
-    boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13, swap_active = false, match_card = true;
+    boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13, swap_active, cabo_called = false, match_card = true;
     int discardCard, selected_card, other_card, other_player, other_card_index, card_number = 0;
     ImageView card, card2;
     ArrayList<Integer> no_dim = new ArrayList<>();
+    //ArrayList<Integer> cards_to_match = new ArrayList<>();
 
 
     public synchronized void CPUController() {
@@ -142,6 +146,46 @@ public class playerLayout5 extends AppCompatActivity {
         System.out.println("turn: " + game.turn.getCount());
         System.out.println("Order: " + order);
         System.out.println("Number of players: " + game.players.size());
+    }
+
+    public void endRound() {
+        int totals[] = new int[game.n];
+        int min_index = 0;
+        int cabo_index = 0;
+        for(int i = 0; i < game.n; i++){
+            totals[i] = game.players.get(i).getTotal();
+            if(totals[i] < totals[min_index])
+                min_index = i;
+            if(game.players.get(i).cabo)
+                cabo_index = i;
+//            System.out.print(totals[i] +  " ");
+        }
+//        System.out.println();
+        if(totals[min_index] == totals[cabo_index]){
+            TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_index + 30));
+            ImageView h_bar = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_index + 40));
+            //ClipDrawable mImageDrawable = (ClipDrawable) h_bar.getDrawable();
+            //mImageDrawable.setLevel(5000);
+            h_text.setText(Integer.toString(game.players.get(cabo_index).health + 10) + "%");
+            game.players.get(cabo_index).health += 10;
+        } else {
+            TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_index + 30));
+            ImageView h_bar = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_index + 40));
+            //ClipDrawable mImageDrawable = (ClipDrawable) h_bar.getDrawable();
+            //mImageDrawable.setLevel(5000);
+            h_text.setText(Integer.toString(game.players.get(cabo_index).health - totals[cabo_index] - 10) + "%");
+            game.players.get(cabo_index).health = game.players.get(cabo_index).health - totals[cabo_index] - 10;
+        }
+//        System.out.println(game.players.get(cabo_index).health);
+        for(int i = 30; i < 35 ; i++) {
+            if(i != cabo_index+30 && i != min_index+30){
+                TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
+                ImageView h_bar = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i + 10));
+                h_text.setText(Integer.toString(game.players.get(i - 30).health - totals[i - 30]) + "%");
+                game.players.get(i - 30).health -= totals[i-30];
+//                System.out.println("Health: " + game.players.get(i-30).health);
+            }
+        }
     }
 
     public synchronized int getCard(int n) {
@@ -348,7 +392,6 @@ public class playerLayout5 extends AppCompatActivity {
 //                    System.out.print(i + " ");
 //                } System.out.println();
 //            }
-
             if (keep_card && (card_number / 4) == order) {
                 final int card_change, final_card, n;
 
@@ -410,6 +453,10 @@ public class playerLayout5 extends AppCompatActivity {
                 keep_card = false;
                 match_card = true;
                 disableAllButtons();
+
+                if(game.players.get(game.turn.getCount()).cabo)
+                    endRound();
+
                 if(order == game.turn.getCount()) {
                     highlightCurrentPlayer(2500);
                     enableAllButtons();
@@ -418,7 +465,8 @@ public class playerLayout5 extends AppCompatActivity {
                     }
                 }
                 test();
-            } else if(powerCard) {
+            } else if(powerCard && !game.players.get(card_number / 4).cabo) {
+                System.out.println("CABO? " + game.players.get(card_number / 4).getOrder() + " " + game.players.get(card_number / 4).cabo);
                 if (selected_card == 7 || selected_card == 8) {
                     if(card_number / 4 == order){
                         int n = game.players.get(order).getHand().get(card_number % 4);
@@ -434,8 +482,11 @@ public class playerLayout5 extends AppCompatActivity {
                         }, 2500);
                         game.Turns();
                         order = (order + 1) % 5;
+                        if(game.players.get(game.turn.getCount()).cabo)
+                            endRound();
                         test();
                         powerCard = false;
+                        match_card = true;
                         brightenCards();
                         pickCard = false;
                         if(order == game.turn.getCount()) {
@@ -461,6 +512,9 @@ public class playerLayout5 extends AppCompatActivity {
                         }, 2500);
                         game.Turns();
                         order = (order + 1) % 5;
+
+                        if(game.players.get(game.turn.getCount()).cabo)
+                            endRound();
 
                         test();
                         match_card = true;
@@ -550,6 +604,8 @@ public class playerLayout5 extends AppCompatActivity {
                     keep_13 = false;
                     game.Turns();
                     order = (order + 1) % 5;
+                    if(game.players.get(game.turn.getCount()).cabo)
+                        endRound();
                     match_card = true;
                     choose_second = false;
                     powerCard = false;
@@ -581,7 +637,7 @@ public class playerLayout5 extends AppCompatActivity {
 //                    System.out.println("MATCH CARDS FAILED!!");
 //                }
 //            }
-            if(!pickCard && !pickCard_discard && view.getId() == R.id.cabo_button_out){
+            if(!pickCard && !pickCard_discard && view.getId() == R.id.cabo_button_out && !cabo_called) {
                 final TextView textView = findViewById(R.id.call_cabo);
                 textView.animate().alpha(100).setDuration(6000);
                 disableAllButtons();
@@ -600,10 +656,14 @@ public class playerLayout5 extends AppCompatActivity {
                     ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
                     flip(card, getCard(curHand.get(i - order*4)), 1, false);
                 }
+                game.players.get(order).cabo = true;
                 game.Turns();
                 order = (order + 1) % 5;
                 match_card = true;
                 pickCard = false;
+                cabo_called = true;
+                //System.out.println("CABO: " + game.players.get(order).getOrder() + " " + game.players.get(order).cabo);
+                brightenCards();
                 if(order == game.turn.getCount()) {
                     highlightCurrentPlayer(2500);
 
@@ -643,6 +703,8 @@ public class playerLayout5 extends AppCompatActivity {
                 } else return;
                 game.Turns();
                 order = (order + 1) % 5;
+                if(game.players.get(game.turn.getCount()).cabo)
+                    endRound();
                 match_card = true;
                 discardCard = selected_card;
                 pickCard = false;
