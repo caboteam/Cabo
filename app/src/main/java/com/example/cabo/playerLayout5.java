@@ -8,34 +8,26 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
-//import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-//import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-//import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class playerLayout5 extends AppCompatActivity {
-    //BOO
     Cabo game = new Cabo(5, 0);
     int order = 0;
     boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13, swap_active, cabo_called = false, match_card = true;
-    int discardCard, selected_card, other_card, other_player, other_card_index, card_number = 0;
+    int selected_card, other_card, other_player, other_card_index, card_number = 0;
     ImageView card, card2;
     ArrayList<Integer> no_dim = new ArrayList<>();
     //ArrayList<Integer> cards_to_match = new ArrayList<>();
@@ -45,7 +37,7 @@ public class playerLayout5 extends AppCompatActivity {
         if (game.players.get(this.order).getTotal() <= 6) {
             View temp = findViewById(R.id.cabo_button_out);
             temp.performClick();
-        } else if (this.discardCard <= 3){
+        } else if (getDiscard() <= 3){
             int index = game.players.get(this.order).findLargest();
             View temp = findViewById(R.id.discard_pile);
             temp.performClick();
@@ -132,8 +124,19 @@ public class playerLayout5 extends AppCompatActivity {
         }
     }
 
+    public int getDiscard() {
+        int len = game.deck.discard_pile.size() - 1;
+        return game.deck.discard_pile.get(len);
+    }
+
+    public int dpToPx(int dp) {
+        float density = getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);
+    }
+
     public void test() {
         game.deck.print();
+        game.deck.printDeck();
         for (int i = 0; i < 5; i++) {
             if (game.players.get(i).cpu)
                 System.out.print("CPU " + (i + 1) + ": ");
@@ -142,7 +145,7 @@ public class playerLayout5 extends AppCompatActivity {
             game.players.get(i).showHand();
             System.out.println();
         }
-        System.out.println("Discarded: " + discardCard);
+        System.out.println("Discarded: " + getDiscard());
         System.out.println("turn: " + game.turn.getCount());
         System.out.println("Order: " + order);
         System.out.println("Number of players: " + game.players.size());
@@ -152,40 +155,111 @@ public class playerLayout5 extends AppCompatActivity {
         int totals[] = new int[game.n];
         int min_index = 0;
         int cabo_index = 0;
+
         for(int i = 0; i < game.n; i++){
             totals[i] = game.players.get(i).getTotal();
             if(totals[i] < totals[min_index])
                 min_index = i;
             if(game.players.get(i).cabo)
                 cabo_index = i;
-//            System.out.print(totals[i] +  " ");
         }
-//        System.out.println();
+
+        final int player_won = min_index+1;
+
+        for(int i = 0; i < 20; i++){
+                ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
+                flip(card, getCard(game.players.get(i/4).getHand().get(i%4)), 1, false);
+        }
+
+        brightenCards();
+
+        final TextView win = findViewById(R.id.round_won);
+        win.setText("Player " + player_won + " wins the Round!!");
+        win.animate().alpha(100).setDuration(1000);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                win.animate().alpha(0).setDuration(1000);
+            }
+        }, 1000);
+
         if(totals[min_index] == totals[cabo_index]){
             TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_index + 30));
-            ImageView h_bar = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_index + 40));
-            //ClipDrawable mImageDrawable = (ClipDrawable) h_bar.getDrawable();
-            //mImageDrawable.setLevel(5000);
             h_text.setText(Integer.toString(game.players.get(cabo_index).health + 10) + "%");
             game.players.get(cabo_index).health += 10;
         } else {
             TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_index + 30));
-            ImageView h_bar = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_index + 40));
-            //ClipDrawable mImageDrawable = (ClipDrawable) h_bar.getDrawable();
-            //mImageDrawable.setLevel(5000);
             h_text.setText(Integer.toString(game.players.get(cabo_index).health - totals[cabo_index] - 10) + "%");
             game.players.get(cabo_index).health = game.players.get(cabo_index).health - totals[cabo_index] - 10;
         }
-//        System.out.println(game.players.get(cabo_index).health);
+
         for(int i = 30; i < 35 ; i++) {
             if(i != cabo_index+30 && i != min_index+30){
                 TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
-                ImageView h_bar = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i + 10));
                 h_text.setText(Integer.toString(game.players.get(i - 30).health - totals[i - 30]) + "%");
                 game.players.get(i - 30).health -= totals[i-30];
-//                System.out.println("Health: " + game.players.get(i-30).health);
             }
         }
+
+        for(int i = 0; i < 5; i++){
+            game.deck.discard_pile.addAll(game.players.get(i).getHand());
+            game.players.get(i).getHand().clear();
+        }
+
+        Handler handler1 = new Handler();
+        handler1.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for(int i = 0; i < 20; i++){
+                    ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
+                    flip(card, R.drawable.card_back, 1, false);
+                }
+            }
+        }, 8000);
+
+        game.players.get(cabo_index).cabo = false;
+        game.deck.reshuffle();
+        game.deck.deal(game.players);
+        game.deck.discard_pile.add(game.deck.drawCard());
+
+        cabo_called = false;
+
+        int change = getCard(getDiscard());
+
+        final ImageView discard = findViewById(R.id.discard_pile);
+        final ImageView discard_dummy = findViewById(R.id.discard_dummy);
+
+        discard.setImageResource(change);
+        discard_dummy.setImageResource(change);
+
+        ArrayList<Integer> curHand = game.players.get(order).getHand();
+
+        final int card1_img = getCard(curHand.get(0));
+        final int card2_img = getCard(curHand.get(1));
+
+        final ImageView card1 = findViewById(R.id.player1_1);
+        final ImageView card2 = findViewById(R.id.player1_2);
+
+        Handler handler2 = new Handler();
+        handler2.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                flip(card1, card1_img, 1, false);
+                flip(card2, card2_img, 1, false);
+            }
+        }, 9500);
+
+        Handler handler3 = new Handler();
+        handler3.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                flip(card1, R.drawable.card_back, 1, false);
+                flip(card2, R.drawable.card_back, 1, false);
+            }
+        }, 14000);
+        highlightCurrentPlayer(2500);
     }
 
     public synchronized int getCard(int n) {
@@ -311,7 +385,7 @@ public class playerLayout5 extends AppCompatActivity {
             brightenCards();
             pickCard_discard = true;
             keep_card = true;
-            selected_card = discardCard;
+            selected_card = getDiscard();
 
             disableAllButtons();
 
@@ -395,7 +469,7 @@ public class playerLayout5 extends AppCompatActivity {
             if (keep_card && (card_number / 4) == order) {
                 final int card_change, final_card, n;
 
-                discardCard = game.players.get(order).getHand().get(card_number % 4);
+                game.deck.discard_pile.add(game.players.get(order).getHand().get(card_number % 4));
                 game.players.get(order).swap(card_number % 4, selected_card);
 
                 final ImageView back;
@@ -406,7 +480,7 @@ public class playerLayout5 extends AppCompatActivity {
                     back = findViewById(R.id.deck);
                 } else {
                     n = 400;
-                    final_card = getCard(discardCard);
+                    final_card = getCard(getDiscard());
                     card_change = R.id.discard_dummy;
                     back = findViewById(R.id.discard_pile);
                     pickCard_discard = false;
@@ -433,7 +507,7 @@ public class playerLayout5 extends AppCompatActivity {
 
                     dummy.setImageResource(R.drawable.card_back);
                     translate(dummy, card, 0);
-                    flip(dummy, getCard(discardCard), 1, false);
+                    flip(dummy, getCard(getDiscard()), 1, false);
 
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
@@ -482,13 +556,13 @@ public class playerLayout5 extends AppCompatActivity {
                         }, 2500);
                         game.Turns();
                         order = (order + 1) % 5;
-                        if(game.players.get(game.turn.getCount()).cabo)
-                            endRound();
                         test();
                         powerCard = false;
                         match_card = true;
                         brightenCards();
                         pickCard = false;
+                        if(game.players.get(game.turn.getCount()).cabo)
+                            endRound();
                         if(order == game.turn.getCount()) {
                             highlightCurrentPlayer(2500);
                             enableAllButtons();
@@ -513,14 +587,13 @@ public class playerLayout5 extends AppCompatActivity {
                         game.Turns();
                         order = (order + 1) % 5;
 
-                        if(game.players.get(game.turn.getCount()).cabo)
-                            endRound();
-
                         test();
                         match_card = true;
                         powerCard = false;
                         pickCard = false;
                         brightenCards();
+                        if(game.players.get(game.turn.getCount()).cabo)
+                            endRound();
                         if(order == game.turn.getCount()) {
                             highlightCurrentPlayer(2500);
                             enableAllButtons();
@@ -596,7 +669,7 @@ public class playerLayout5 extends AppCompatActivity {
                             card2.setVisibility(card2.VISIBLE);
                             translate(dummy1, findViewById(R.id.deck), 0);
                             translate(dummy2, findViewById(R.id.discard_pile), 0);
-                            dummy2.setImageResource(getCard(discardCard));
+                            dummy2.setImageResource(getCard(getDiscard()));
                             brightenCards();
                         }
                     }, 3500);
@@ -604,12 +677,12 @@ public class playerLayout5 extends AppCompatActivity {
                     keep_13 = false;
                     game.Turns();
                     order = (order + 1) % 5;
-                    if(game.players.get(game.turn.getCount()).cabo)
-                        endRound();
                     match_card = true;
                     choose_second = false;
                     powerCard = false;
                     pickCard = false;
+                    if(game.players.get(game.turn.getCount()).cabo)
+                        endRound();
                     if(order == game.turn.getCount()) {
                         highlightCurrentPlayer(3500);
 
@@ -703,11 +776,11 @@ public class playerLayout5 extends AppCompatActivity {
                 } else return;
                 game.Turns();
                 order = (order + 1) % 5;
+                match_card = true;
+                game.deck.discard_pile.add(selected_card);
+                pickCard = false;
                 if(game.players.get(game.turn.getCount()).cabo)
                     endRound();
-                match_card = true;
-                discardCard = selected_card;
-                pickCard = false;
                 if(order == game.turn.getCount()) {
                     highlightCurrentPlayer(750);
 
@@ -746,8 +819,8 @@ public class playerLayout5 extends AppCompatActivity {
                 final ImageView imageView = findViewById(R.id.deck_dummy);
                 final ImageView back = findViewById(R.id.deck);
 
-                discardCard = selected_card;
-                int change = getCard(discardCard);
+                game.deck.discard_pile.add(selected_card);
+                int change = getCard(getDiscard());
 
                 translate(imageView, discard, 400);
                 imageView.animate().scaleX(1).scaleY(1).setDuration(400);
@@ -807,8 +880,8 @@ public class playerLayout5 extends AppCompatActivity {
         //game.deck.print();
         //System.out.println(game.players.get(0).getOrder());
 
-        discardCard = game.deck.drawCard();
-        int change = getCard(discardCard);
+        game.deck.discard_pile.add(game.deck.drawCard());
+        int change = getCard(getDiscard());
 
         final ImageView discard = findViewById(R.id.discard_pile);
         final ImageView discard_dummy = findViewById(R.id.discard_dummy);
