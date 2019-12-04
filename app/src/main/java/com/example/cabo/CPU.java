@@ -8,9 +8,11 @@ public class CPU extends Player {
     public int health = 100;
     public boolean turn = false;
     public int cardNum = 0;
+    private int n;
 
     public CPU(final int order, final Cabo model, final int n) {
         super(order, model);
+        this.n = n;
         this.memory = new int[n][4];
         MakeCPU();
         for (int[] row : memory)
@@ -50,6 +52,17 @@ public class CPU extends Player {
         System.out.print(" = " + count);
     }
 
+    @Override
+    public void clearHand() {
+        this.memory = new int[this.n][4];
+        cardNum = 0;
+        for (int[] row : memory)
+            Arrays.fill(row, -1);
+//        for(int i = 0; i < 4; i++){
+//            System.out.print("Cards: " + this.memory[this.order][i] + " ");
+//        }
+    }
+
     //
     @Override
     public ArrayList<Integer> getHand() {
@@ -66,6 +79,21 @@ public class CPU extends Player {
         int temp = this.memory[this.order][index];
         this.memory[this.order][index] = value;
         return temp;
+    }
+
+    @Override
+    public int findLargest() {
+        int large = -1;
+        int index = 0;
+        int count = 0;
+        for (int num: this.memory[this.order]){
+            if (num > large) {
+                large = num;
+                index = count;
+            }
+            count += 1;
+        }
+        return index;
     }
 
 

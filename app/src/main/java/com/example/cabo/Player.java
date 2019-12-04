@@ -55,6 +55,13 @@ public class Player {
         System.out.print(" = " + count);
     }
 
+    public void clearHand() {
+//        for (int i = 0; i < 4; i++) {
+//            this.hand.get(i);
+//        }
+        this.hand.clear();
+    }
+
     public ArrayList<Integer> getHand() {
         return hand;
     }

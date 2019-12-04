@@ -22,21 +22,20 @@ public class Deck {
             }
         }
         shuffle();
-//        this.deck.set(30, 7);
-//        this.deck.set(29, 7);
-//        this.deck.set(28, 7);
-//        this.deck.set(27, 7);
+        this.deck.set(30, 1);
+        this.deck.set(29, 13);
+        this.deck.set(28, 9);
+        this.deck.set(27, 11);
+        this.deck.set(26, 13);
     }
 
     private void shuffle() {
-        System.out.println("Shuffled!");
         int j, k, temp;
         Random rand = new Random();
         for (int i = 0; i < 500; i++) {
             // Obtain a number between [0 - 51]
             j = rand.nextInt(this.count);
             k = rand.nextInt(this.count);
-            System.out.print(j + " " + k + " ");
 
             temp = this.deck.get(j);
             this.deck.set(j, this.deck.get(k));
@@ -85,13 +84,6 @@ public class Deck {
         System.out.println("\n");
     }
 
-    public void printDeck() {
-        System.out.println("Cards in discard_pile: " + (this.discard_pile.size()));
-        for (int card: this.discard_pile) {
-            System.out.print(card + " ");
-        }
-        System.out.println("\n");
-    }
 //	public static void main(String[] arg) {
 //		// Testing for creating a shuffled deck
 //		Deck temp = new Deck();
