@@ -59,7 +59,7 @@ public class Cabo {
         return this.PLAY;
     }
 
-    public static boolean contains(int[] array, final int v) {
+    public boolean contains(int[] array, final int v) {
 
         boolean result = false;
 
