@@ -53,35 +53,38 @@ public class playerLayout5 extends AppCompatActivity {
                 int index = game.players.get(this.order).findLargest();
                 ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((this.order * (game.n - 1)) + index));
                 card.performClick();
-            } else if (game.contains(Deck.POWER,selected_card)) {
+            } else if (game.contains(Deck.POWER,selected_card) == true) {
+                int high = game.players.get(this.order).getHand().size();
                 View temp2 = findViewById(R.id.power_button_out);
                 temp2.performClick();
                 if (selected_card == 7 || selected_card == 8) {
-                    Random choose = new Random(game.players.get(this.order).length());
-                    ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((this.order * (game.n - 1)) + choose.nextInt()));
+                    Random choose = new Random();
+                    int num = choose.nextInt(high);
+                    System.out.println((this.order * (game.n - 1)) + num);
+                    ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((this.order * (game.n - 1)) + num));
                     card.performClick();
 
                 } else if (selected_card == 9 || selected_card == 10) {
-                    Random player = new Random(game.n);
-                    Random index = new Random(4);
+                    Random player = new Random();
+                    Random index = new Random();
 
-                    int numPlayer = player.nextInt();
+                    int numPlayer = player.nextInt(game.n);
                     while (numPlayer == this.order) {
-                        numPlayer = player.nextInt();
+                        numPlayer = player.nextInt(game.n);
                     }
 
-                    ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((numPlayer * (game.n - 1)) + index.nextInt()));
+                    ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((numPlayer * (game.n - 1)) + index.nextInt(high)));
                     card.performClick();
                 } else if (selected_card == 11 || selected_card == 12) {
-                    Random player = new Random(game.n);
-                    Random index = new Random(4);
+                    Random player = new Random();
+                    Random index = new Random();
 
-                    int numPlayer = player.nextInt();
+                    int numPlayer = player.nextInt(game.n);
                     while (numPlayer == this.order) {
-                        numPlayer = player.nextInt();
+                        numPlayer = player.nextInt(game.n);
                     }
 
-                    ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((numPlayer * (game.n - 1)) + index.nextInt()));
+                    ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((numPlayer * (game.n - 1)) + index.nextInt(high)));
                     card.performClick();
 
 
@@ -90,15 +93,15 @@ public class playerLayout5 extends AppCompatActivity {
                     our_card.performClick();
 
                 } else {
-                    Random player = new Random(game.n);
-                    Random index = new Random(4);
+                    Random player = new Random();
+                    Random index = new Random();
 
-                    int numPlayer = player.nextInt();
+                    int numPlayer = player.nextInt(game.n);
                     while (numPlayer == this.order) {
-                        numPlayer = player.nextInt();
+                        numPlayer = player.nextInt(game.n);
                     }
 
-                    ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((numPlayer * (game.n - 1)) + index.nextInt()));
+                    ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((numPlayer * (game.n - 1)) + index.nextInt(high)));
                     card.performClick();
 
                     int large = game.players.get(this.order).findLargest();
@@ -268,12 +271,12 @@ public class playerLayout5 extends AppCompatActivity {
         }, 14000);
     }
 
-    public synchronized int getCard(int n) {
+    public int getCard(int n) {
         Resources res = getResources();
         return res.getIdentifier("c" + n, "drawable", getPackageName());
     }
 
-    private synchronized void dimCards(ArrayList<Integer> no_dim) {
+    private void dimCards(ArrayList<Integer> no_dim) {
         for(int i = 0; i < 24; i++) {
             if(!no_dim.contains(i)){
                 ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
@@ -307,7 +310,7 @@ public class playerLayout5 extends AppCompatActivity {
         }, n);
     }
 
-    private synchronized void translate(View viewToMove, View target, long n) {
+    private void translate(View viewToMove, View target, long n) {
         viewToMove.animate()
                 .x(target.getX())
                 .y(target.getY())
@@ -315,7 +318,7 @@ public class playerLayout5 extends AppCompatActivity {
                 .start();
     }
 
-    private synchronized void flip(final ImageView imageView, final int change, final int scale, final boolean center) {
+    private void flip(final ImageView imageView, final int change, final int scale, final boolean center) {
         final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageView, "scaleX", 1f, 0f);
         final ObjectAnimator oa2 = ObjectAnimator.ofFloat(imageView, "scaleX", 0f, 1f);
 
@@ -343,7 +346,7 @@ public class playerLayout5 extends AppCompatActivity {
         oa1.setDuration(100);
     }
 
-    private synchronized void disableAllButtons() {
+    private void disableAllButtons() {
         ImageView button1 = findViewById(R.id.discard_button_in);
         ImageView button2 = findViewById(R.id.power_button_in);
         ImageView button3 = findViewById(R.id.keep_button_in);
@@ -355,7 +358,7 @@ public class playerLayout5 extends AppCompatActivity {
         button4.setVisibility(button4.INVISIBLE);
     }
 
-    private synchronized void enableAllButtons() {
+    private void enableAllButtons() {
         ImageView button1 = findViewById(R.id.discard_button_in);
         ImageView button2 = findViewById(R.id.power_button_in);
         ImageView button3 = findViewById(R.id.keep_button_in);
@@ -367,7 +370,7 @@ public class playerLayout5 extends AppCompatActivity {
         button4.setVisibility(button4.VISIBLE);
     }
 
-    public synchronized void pickCardDeck(View view) {
+    public void pickCardDeck(View view) {
         if (game.turn.getCount() == order && !pickCard_discard && !pickCard){
             selected_card = game.deck.drawCard();
             brightenCards();
@@ -385,7 +388,7 @@ public class playerLayout5 extends AppCompatActivity {
         }
     }
 
-    public synchronized void  pickDiscardCard(View view) {
+    public void  pickDiscardCard(View view) {
         if (game.turn.getCount() == order && !pickCard) {
             //System.out.println("DISCARD PILE CARD");
             brightenCards();
@@ -452,7 +455,7 @@ public class playerLayout5 extends AppCompatActivity {
         alert.show();
     }
 
-    public synchronized void selectCard(View view) {
+    public void selectCard(View view) {
         card = (ImageView) view;
         card_number = Integer.parseInt(card.getTag().toString());
 
@@ -542,6 +545,7 @@ public class playerLayout5 extends AppCompatActivity {
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
                         CPUController();
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     }
                 }
                 test();
@@ -574,6 +578,7 @@ public class playerLayout5 extends AppCompatActivity {
                             enableAllButtons();
                             if (game.players.get(order).cpu == true) {
                                 CPUController();
+                                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                             }
                         }
                     }
@@ -605,6 +610,7 @@ public class playerLayout5 extends AppCompatActivity {
                             enableAllButtons();
                             if (game.players.get(order).cpu == true) {
                                 CPUController();
+                                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                             }
                         }
                     }
@@ -695,6 +701,7 @@ public class playerLayout5 extends AppCompatActivity {
                         enableAllButtons();
                         if (game.players.get(order).cpu == true) {
                             CPUController();
+                            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         }
                     }
                     test();
@@ -703,7 +710,7 @@ public class playerLayout5 extends AppCompatActivity {
         }
     }
 
-    public synchronized void buttonClick(View view) {
+    public void buttonClick(View view) {
         if (game.turn.getCount() == order) {
 //            if(match_card) {
 //                while(cards_to_match.isEmpty()) {
@@ -749,6 +756,7 @@ public class playerLayout5 extends AppCompatActivity {
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
                         CPUController();
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     }
                 }
                 test();
@@ -793,6 +801,7 @@ public class playerLayout5 extends AppCompatActivity {
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
                         CPUController();
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     }
                 }
                 test();
