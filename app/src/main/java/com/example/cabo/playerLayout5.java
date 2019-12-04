@@ -216,6 +216,8 @@ public class playerLayout5 extends AppCompatActivity {
                 for(int i = 0; i < 20; i++){
                     ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
                     flip(card, R.drawable.card_back, 1, false);
+                    win.setText("New Round Begins!");
+                    win.animate().alpha(100).setDuration(1000);
                 }
             }
         }, 8000);
@@ -235,7 +237,7 @@ public class playerLayout5 extends AppCompatActivity {
         discard.setImageResource(change);
         discard_dummy.setImageResource(change);
 
-        ArrayList<Integer> curHand = game.players.get(order).getHand();
+        final ArrayList<Integer> curHand = game.players.get(order).getHand();
 
         final int card1_img = getCard(curHand.get(0));
         final int card2_img = getCard(curHand.get(1));
@@ -247,8 +249,14 @@ public class playerLayout5 extends AppCompatActivity {
         handler2.postDelayed(new Runnable() {
             @Override
             public void run() {
+                highlightCurrentPlayer(2500);
+                brightenCards();
+                no_dim.add(0);
+                no_dim.add(1);
+                dimCards(no_dim);
                 flip(card1, card1_img, 1, false);
                 flip(card2, card2_img, 1, false);
+                win.animate().alpha(0).setDuration(1000);
             }
         }, 9500);
 
@@ -256,11 +264,11 @@ public class playerLayout5 extends AppCompatActivity {
         handler3.postDelayed(new Runnable() {
             @Override
             public void run() {
+                highlightCurrentPlayer(1000);
                 flip(card1, R.drawable.card_back, 1, false);
                 flip(card2, R.drawable.card_back, 1, false);
             }
         }, 14000);
-        highlightCurrentPlayer(2500);
     }
 
     public int getCard(int n) {

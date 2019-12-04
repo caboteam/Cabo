@@ -29,12 +29,14 @@ public class Deck {
     }
 
     private void shuffle() {
+        System.out.println("Shuffled!");
         int j, k, temp;
         Random rand = new Random();
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 500; i++) {
             // Obtain a number between [0 - 51]
             j = rand.nextInt(this.count);
             k = rand.nextInt(this.count);
+            System.out.print(j + " " + k + " ");
 
             temp = this.deck.get(j);
             this.deck.set(j, this.deck.get(k));
@@ -65,9 +67,9 @@ public class Deck {
 
 	public void reshuffle() {
 		this.deck.addAll(this.discard_pile);
-		shuffle();
 		this.count = this.deck.size();
 		this.discard_pile.clear();
+        shuffle();
 	}
 
      public boolean isEmpty() {
