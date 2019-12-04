@@ -6,6 +6,7 @@ public class Deck {
     private final static int[] VALUES = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,12,13};
     public final static int[] POWER = {7,8,9,10,11,12,13};
     public ArrayList<Integer> deck = new ArrayList<>();
+    public ArrayList<Integer> discard_pile = new ArrayList<>();
     private ArrayList<Integer> inPlay = new ArrayList<>();
     private int count = 0;
     private Cabo model;
@@ -21,9 +22,9 @@ public class Deck {
             }
         }
         shuffle();
-        this.deck.set(30, 11);
-        this.deck.set(29, 12);
-//        this.deck.set(28, 12);
+//        this.deck.set(30, 11);
+//        this.deck.set(29, 12);
+//        this.deck.set(28, 13);
 //        this.deck.set(27, 13);
     }
 
@@ -51,22 +52,25 @@ public class Deck {
                 this.count--;
             }
         }
-
     }
 
     public int drawCard() {
         int temp = this.deck.remove(this.count -1);
         this.count--;
+        //reshuffle();
+        if(this.count == 1)
+            reshuffle();
         return temp;
     }
 
-//	public void reshuffle(ArrayList<Integer> discard) {
-//		this.deck.addAll(discard);
-//		shuffle();
-//		this.count = this.deck.size();
-//	}
+	public void reshuffle() {
+		this.deck.addAll(this.discard_pile);
+		shuffle();
+		this.count = this.deck.size();
+		this.discard_pile.clear();
+	}
 
-    public boolean isEmpty() {
+     public boolean isEmpty() {
         return this.count == 0;
     }
 
@@ -79,6 +83,13 @@ public class Deck {
         System.out.println("\n");
     }
 
+    public void printDeck() {
+        System.out.println("Cards in discard_pile: " + (this.discard_pile.size()));
+        for (int card: this.discard_pile) {
+            System.out.print(card + " ");
+        }
+        System.out.println("\n");
+    }
 //	public static void main(String[] arg) {
 //		// Testing for creating a shuffled deck
 //		Deck temp = new Deck();
