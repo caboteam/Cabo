@@ -17,20 +17,20 @@ public class MainActivity extends AppCompatActivity {
 //    WifiP2pManager.Channel channel;
 //    WifiP2pManager manager;
 
-    public void playerLayout4(View view) {
-        Intent intent = new Intent(getApplicationContext(), playerLayout4.class);
-        startActivity(intent);
-    }
+//    public void playerLayout4(View view) {
+//        Intent intent = new Intent(getApplicationContext(), playerLayout4.class);
+//        startActivity(intent);
+//    }
 
     public void playerLayout5(View view) {
         Intent intent = new Intent(getApplicationContext(), playerLayout5.class);
         startActivity(intent);
     }
 
-    public void playerLayout6(View view) {
-        Intent intent = new Intent(getApplicationContext(), playerLayout6.class);
-        startActivity(intent);
-    }
+//    public void playerLayout6(View view) {
+//        Intent intent = new Intent(getApplicationContext(), playerLayout6.class);
+//        startActivity(intent);
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -26,7 +26,7 @@ import java.util.Random;
 public class playerLayout5 extends AppCompatActivity {
     Cabo game = new Cabo(1, 4);
     int order = 0;
-    boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13, swap_active, cabo_called = false, match_card = true;
+    boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13, swap_active, cabo_called, end_of_round = false, match_card = true;
     int selected_card, other_card, other_player, other_card_index, card_number = 0;
     int cabo_player = -1;
     ImageView card, card2;
@@ -48,7 +48,7 @@ public class playerLayout5 extends AppCompatActivity {
         if (game.players.get(this.order).getTotal() <= 6 && !cabo_called) {
             View temp = findViewById(R.id.cabo_button_out);
             delay(temp, 4000);
-        } else if (getDiscard() <= 3){
+        } else if (getDiscard() <= 3 && getDiscard() <= game.players.get(order).findLargest()){
             int index = game.players.get(this.order).findLargest();
             View temp = findViewById(R.id.discard_pile);
             delay(temp, 4000);
@@ -62,7 +62,7 @@ public class playerLayout5 extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (selected_card <= 3) {
+                    if (selected_card <= 3 && selected_card <= game.players.get(order).findLargest()) {
                         System.out.println("CARD KEPT!");
                         View temp2 = findViewById(R.id.keep_button_out);
                         delay(temp2, 2000);
@@ -173,7 +173,7 @@ public class playerLayout5 extends AppCompatActivity {
             if(game.players.get(i).health > game.players.get(player_won).health)
                 player_won = i;
         }
-        player_won ++;
+        player_won++;
         final TextView win = findViewById(R.id.round_won);
         win.setText("Player " + player_won + " wins the Game!!");
         win.animate().alpha(100).setDuration(1000);
@@ -191,15 +191,16 @@ public class playerLayout5 extends AppCompatActivity {
     public void endRound() {
         int totals[] = new int[game.n];
         int min_index = 0;
-        int cabo_index = 0;
 
         for(int i = 0; i < game.n; i++){
             totals[i] = game.players.get(i).getTotal();
-            if(totals[i] < totals[min_index])
+            if(totals[i] <= totals[min_index] && i != cabo_player){
                 min_index = i;
-            if(game.players.get(i).cabo)
-                cabo_index = i;
+            }
         }
+
+        if(totals[cabo_player] < totals[min_index])
+            min_index = cabo_player;
 
         final int player_won = min_index+1;
 
@@ -222,18 +223,18 @@ public class playerLayout5 extends AppCompatActivity {
             }
         }, 1000);
 
-        if(totals[min_index] == totals[cabo_index]){
-            TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_index + 30));
-            h_text.setText(Integer.toString(game.players.get(cabo_index).health + 10) + "%");
-            game.players.get(cabo_index).health += 10;
+        if(totals[min_index] == totals[cabo_player]){
+            TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_player + 30));
+            h_text.setText(Integer.toString(game.players.get(cabo_player).health + 10) + "%");
+            game.players.get(cabo_player).health += 10;
         } else {
-            TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_index + 30));
-            h_text.setText(Integer.toString(game.players.get(cabo_index).health - totals[cabo_index] - 10) + "%");
-            game.players.get(cabo_index).health = game.players.get(cabo_index).health - totals[cabo_index] - 10;
+            TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_player + 30));
+            h_text.setText(Integer.toString(game.players.get(cabo_player).health - totals[cabo_player] - 10) + "%");
+            game.players.get(cabo_player).health = game.players.get(cabo_player).health - totals[cabo_player] - 10;
         }
 
         for(int i = 30; i < 35 ; i++) {
-            if(i != cabo_index+30 && i != min_index+30){
+            if(i != cabo_player+30 && i != min_index+30){
                 TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
                 h_text.setText(Integer.toString(game.players.get(i - 30).health - totals[i - 30]) + "%");
                 game.players.get(i - 30).health -= totals[i-30];
@@ -268,7 +269,7 @@ public class playerLayout5 extends AppCompatActivity {
         for(int i = 0; i < game.n; i++) {
             game.players.get(i).clearHand();
         }
-        game.players.get(cabo_index).cabo = false;
+        game.players.get(cabo_player).cabo = false;
         cabo_player = -1;
         game.deck.reshuffle();
         game.deck.deal(game.players);
@@ -587,14 +588,27 @@ public class playerLayout5 extends AppCompatActivity {
                 match_card = true;
                 disableAllButtons();
 
-                if(game.players.get(game.turn.getCount()).cabo)
+                if(game.players.get(game.turn.getCount()).cabo){
                     endRound();
+                    end_of_round = true;
+                }
 
                 if(order == game.turn.getCount()) {
                     highlightCurrentPlayer(2500);
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
-                        CPUController();
+                        if(end_of_round){
+                            Handler handler2 = new Handler();
+                            handler2.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    CPUController();
+                                }
+                            }, 14000);
+                            end_of_round = false;
+                        }
+                        else
+                            CPUController();
                         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     }
                 }
@@ -621,13 +635,28 @@ public class playerLayout5 extends AppCompatActivity {
                         match_card = true;
                         brightenCards();
                         pickCard = false;
-                        if(game.players.get(game.turn.getCount()).cabo)
+
+                        if(game.players.get(game.turn.getCount()).cabo){
                             endRound();
+                            end_of_round = true;
+                        }
+
                         if(order == game.turn.getCount()) {
                             highlightCurrentPlayer(2500);
                             enableAllButtons();
                             if (game.players.get(order).cpu == true) {
-                                CPUController();
+                                if(end_of_round){
+                                    Handler handler2 = new Handler();
+                                    handler2.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            CPUController();
+                                        }
+                                    }, 14000);
+                                    end_of_round = false;
+                                }
+                                else
+                                    CPUController();
                                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                             }
                         }
@@ -654,13 +683,28 @@ public class playerLayout5 extends AppCompatActivity {
                         powerCard = false;
                         pickCard = false;
                         brightenCards();
-                        if(game.players.get(game.turn.getCount()).cabo)
+
+                        if(game.players.get(game.turn.getCount()).cabo){
                             endRound();
+                            end_of_round = true;
+                        }
+
                         if(order == game.turn.getCount()) {
                             highlightCurrentPlayer(2500);
                             enableAllButtons();
                             if (game.players.get(order).cpu == true) {
-                                CPUController();
+                                if(end_of_round){
+                                    Handler handler2 = new Handler();
+                                    handler2.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            CPUController();
+                                        }
+                                    }, 14000);
+                                    end_of_round = false;
+                                }
+                                else
+                                    CPUController();
                                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                             }
                         }
@@ -745,14 +789,29 @@ public class playerLayout5 extends AppCompatActivity {
                     choose_second = false;
                     powerCard = false;
                     pickCard = false;
-                    if(game.players.get(game.turn.getCount()).cabo)
+
+                    if(game.players.get(game.turn.getCount()).cabo){
                         endRound();
+                        end_of_round = true;
+                    }
+
                     if(order == game.turn.getCount()) {
                         highlightCurrentPlayer(3500);
 
                         enableAllButtons();
                         if (game.players.get(order).cpu == true) {
-                            CPUController();
+                            if(end_of_round){
+                                Handler handler2 = new Handler();
+                                handler2.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        CPUController();
+                                    }
+                                }, 14000);
+                                end_of_round = false;
+                            }
+                            else
+                                CPUController();
                             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         }
                     }
@@ -846,14 +905,29 @@ public class playerLayout5 extends AppCompatActivity {
                 match_card = true;
                 game.deck.discard_pile.add(selected_card);
                 pickCard = false;
-                if(game.players.get(game.turn.getCount()).cabo)
+
+                if(game.players.get(game.turn.getCount()).cabo){
                     endRound();
+                    end_of_round = true;
+                }
+
                 if(order == game.turn.getCount()) {
                     highlightCurrentPlayer(750);
 
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
-                        CPUController();
+                        if(end_of_round){
+                            Handler handler2 = new Handler();
+                            handler2.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    CPUController();
+                                }
+                            }, 14000);
+                            end_of_round = false;
+                        }
+                        else
+                            CPUController();
                     }
                 }
                 test();

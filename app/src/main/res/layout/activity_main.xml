@@ -18,12 +18,13 @@
         android:background="@drawable/button_background"
         android:fontFamily="@font/proximanovareg"
         android:onClick="playerLayout5"
-        android:text="5 Players"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        android:text="Play"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="parent" />
 
+    <!--
     <Button
         android:id="@+id/button2"
         android:layout_width="149dp"
@@ -54,6 +55,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
+
+        -->
 
     <TextView
         android:id="@+id/textView2"

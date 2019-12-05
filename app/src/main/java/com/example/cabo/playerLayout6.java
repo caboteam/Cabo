@@ -28,6 +28,7 @@ public class playerLayout6 extends AppCompatActivity {
     int order = 0;
     boolean pickCard, pickCard_discard, keep_card, card_pick, powerCard, choose_second, keep_13, swap_active, cabo_called = false, match_card = true;
     int selected_card, other_card, other_player, other_card_index, card_number = 0;
+    int cabo_player = -1;
     ImageView card, card2;
     ArrayList<Integer> no_dim = new ArrayList<>();
     //ArrayList<Integer> cards_to_match = new ArrayList<>();
@@ -46,37 +47,34 @@ public class playerLayout6 extends AppCompatActivity {
     public synchronized void CPUController() {
         if (game.players.get(this.order).getTotal() <= 6 && !cabo_called) {
             View temp = findViewById(R.id.cabo_button_out);
-            delay(temp, 3000);
+            delay(temp, 4000);
         } else if (getDiscard() <= 3){
             int index = game.players.get(this.order).findLargest();
             View temp = findViewById(R.id.discard_pile);
-            delay(temp, 3000);
+            delay(temp, 4000);
             ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((this.order * (game.n - 1)) + index));
-            delay(card, 5000);
+            delay(card, 6000);
 
         } else{
             View temp = findViewById(R.id.deck_dummy);
-            delay(temp, 3000);
+            delay(temp, 4000);
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if (selected_card <= 3) {
-                        System.out.println("CARD KEPT!");
                         View temp2 = findViewById(R.id.keep_button_out);
                         delay(temp2, 2000);
                         int index = game.players.get(order).findLargest();
                         ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((order * (game.n - 1)) + index));
                         delay(card, 4500);
                     } else if (game.contains(Deck.POWER,selected_card) == true) {
-                        System.out.println("POWER USED!");
                         int high = game.players.get(order).getHand().size();
                         View temp2 = findViewById(R.id.power_button_out);
                         delay(temp2, 2000);
                         if (selected_card == 7 || selected_card == 8) {
                             Random choose = new Random();
                             int num = choose.nextInt(high);
-                            System.out.println((order * (game.n - 1)) + num);
                             ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((order * (game.n - 1)) + num));
                             delay(card, 4500);
 
@@ -85,7 +83,7 @@ public class playerLayout6 extends AppCompatActivity {
                             Random index = new Random();
 
                             int numPlayer = player.nextInt(game.n);
-                            while (numPlayer == order) {
+                            while (numPlayer == order || numPlayer == cabo_player) {
                                 numPlayer = player.nextInt(game.n);
                             }
 
@@ -96,7 +94,7 @@ public class playerLayout6 extends AppCompatActivity {
                             Random index = new Random();
 
                             int numPlayer = player.nextInt(game.n);
-                            while (numPlayer == order) {
+                            while (numPlayer == order || numPlayer == cabo_player) {
                                 numPlayer = player.nextInt(game.n);
                             }
 
@@ -113,7 +111,7 @@ public class playerLayout6 extends AppCompatActivity {
                             Random index = new Random();
 
                             int numPlayer = player.nextInt(game.n);
-                            while (numPlayer == order) {
+                            while (numPlayer == order || numPlayer == cabo_player) {
                                 numPlayer = player.nextInt(game.n);
                             }
                             int playerIndex = index.nextInt(4);
@@ -122,8 +120,6 @@ public class playerLayout6 extends AppCompatActivity {
                             delay(card, 4500);
 
                             int large = game.players.get(order).findLargest();
-
-                            System.out.println("Index: " + playerIndex + "Player: " + numPlayer + "Largest: " + large);
 
                             if (game.players.get(numPlayer).getHand().get(playerIndex) > game.players.get(order).getHand().get(large)) {
                                 ImageView temp3 = findViewById(R.id.discard_button_out);
@@ -141,7 +137,7 @@ public class playerLayout6 extends AppCompatActivity {
                         delay(temp2, 5000);
                     }
                 }
-            }, 3500);
+            }, 4500);
         }
     }
 
@@ -163,25 +159,43 @@ public class playerLayout6 extends AppCompatActivity {
         System.out.println("Discarded: " + getDiscard());
         System.out.println("turn: " + game.turn.getCount());
         System.out.println("Order: " + order);
-        System.out.println("Number of players: " + game.players.size());
+        System.out.println("Number of players: " + game.n);
+    }
+
+    public void endGame() {
+        int player_won = 0;
+        for(int i = 0; i < game.n; i++) {
+            if(game.players.get(i).health > game.players.get(player_won).health)
+                player_won = i;
+        }
+        player_won++;
+        final TextView win = findViewById(R.id.round_won);
+        win.setText("Player " + player_won + " wins the Game!!");
+        win.animate().alpha(100).setDuration(1000);
+
+        Handler handler2 = new Handler();
+        handler2.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        }, 10000);
     }
 
     public void endRound() {
         int totals[] = new int[game.n];
         int min_index = 0;
-        int cabo_index = 0;
 
         for(int i = 0; i < game.n; i++){
             totals[i] = game.players.get(i).getTotal();
-            if(totals[i] < totals[min_index])
+            if(totals[i] <= totals[min_index] && i != cabo_player)
                 min_index = i;
-            if(game.players.get(i).cabo)
-                cabo_index = i;
         }
 
         final int player_won = min_index+1;
 
-        for(int i = 0; i < 20; i++){
+        for(int i = 0; i < game.n * 4; i++){
             ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
             flip(card, getCard(game.players.get(i/4).getHand().get(i%4)), 1, false);
         }
@@ -200,21 +214,28 @@ public class playerLayout6 extends AppCompatActivity {
             }
         }, 1000);
 
-        if(totals[min_index] == totals[cabo_index]){
-            TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_index + 30));
-            h_text.setText(Integer.toString(game.players.get(cabo_index).health + 10) + "%");
-            game.players.get(cabo_index).health += 10;
+        if(totals[min_index] == totals[cabo_player]){
+            TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_player + 30));
+            h_text.setText(Integer.toString(game.players.get(cabo_player).health + 10) + "%");
+            game.players.get(cabo_player).health += 10;
         } else {
-            TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_index + 30));
-            h_text.setText(Integer.toString(game.players.get(cabo_index).health - totals[cabo_index] - 10) + "%");
-            game.players.get(cabo_index).health = game.players.get(cabo_index).health - totals[cabo_index] - 10;
+            TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_player + 30));
+            h_text.setText(Integer.toString(game.players.get(cabo_player).health - totals[cabo_player] - 10) + "%");
+            game.players.get(cabo_player).health = game.players.get(cabo_player).health - totals[cabo_player] - 10;
         }
 
-        for(int i = 30; i < 35 ; i++) {
-            if(i != cabo_index+30 && i != min_index+30){
+        for(int i = 30; i < 36 ; i++) {
+            if(i != cabo_player+30 && i != min_index+30){
                 TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
                 h_text.setText(Integer.toString(game.players.get(i - 30).health - totals[i - 30]) + "%");
                 game.players.get(i - 30).health -= totals[i-30];
+            }
+        }
+
+        for(int i = 0; i < game.n; i++) {
+            if (game.players.get(i).health <= 0) {
+                endGame();
+                return;
             }
         }
 
@@ -227,7 +248,7 @@ public class playerLayout6 extends AppCompatActivity {
         handler1.postDelayed(new Runnable() {
             @Override
             public void run() {
-                for(int i = 0; i < 20; i++){
+                for(int i = 0; i < game.n * 4; i++){
                     ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
                     flip(card, R.drawable.card_back, 1, false);
                     win.setText("New Round Begins!");
@@ -239,7 +260,8 @@ public class playerLayout6 extends AppCompatActivity {
         for(int i = 0; i < game.n; i++) {
             game.players.get(i).clearHand();
         }
-        game.players.get(cabo_index).cabo = false;
+        game.players.get(cabo_player).cabo = false;
+        cabo_player = -1;
         game.deck.reshuffle();
         game.deck.deal(game.players);
         game.deck.discard_pile.add(game.deck.drawCard());
@@ -294,7 +316,13 @@ public class playerLayout6 extends AppCompatActivity {
     }
 
     private void dimCards(ArrayList<Integer> no_dim) {
-        for(int i = 0; i < 24; i++) {
+        for(int i = 0; i < game.n * 4; i++) {
+            if(!no_dim.contains(i)){
+                ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
+                card.setColorFilter(Color.argb(150, 0, 0, 0));
+            }
+        }
+        for(int i = 24; i < 28; i++) {
             if(!no_dim.contains(i)){
                 ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
                 card.setColorFilter(Color.argb(150, 0, 0, 0));
@@ -303,7 +331,11 @@ public class playerLayout6 extends AppCompatActivity {
     }
 
     private synchronized void brightenCards() {
-        for(int i = 0; i < 24; i++){
+        for(int i = 0; i < game.n * 4; i++){
+            ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
+            card.setColorFilter(Color.argb(0, 0, 0, 0));
+        }
+        for(int i = 24; i < 28; i++) {
             ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
             card.setColorFilter(Color.argb(0, 0, 0, 0));
         }
@@ -315,7 +347,7 @@ public class playerLayout6 extends AppCompatActivity {
         no_dim.add(1 + order*4);
         no_dim.add(2 + order*4);
         no_dim.add(3 + order*4);
-        for(int i = 20; i < 24; i++) {
+        for(int i = 24; i < 28; i++) {
             no_dim.add(i);
         }
         Handler handler = new Handler();
@@ -391,8 +423,6 @@ public class playerLayout6 extends AppCompatActivity {
         if (game.turn.getCount() == order && !pickCard_discard && !pickCard){
             selected_card = game.deck.drawCard();
             brightenCards();
-            //System.out.println(selected_card);
-            //game.deck.print();
             int change = getCard(selected_card);
             pickCard = true;
             ImageView button = findViewById(R.id.cabo_button_in);
@@ -400,7 +430,10 @@ public class playerLayout6 extends AppCompatActivity {
 
             final ImageView imageView = findViewById(R.id.deck_dummy);
             //imageView.setVisibility(imageView.VISIBLE);
-            flip(imageView, change, 3, true);
+            if(game.players.get(order).cpu)
+                flip(imageView, R.drawable.card_back, 3, true);
+            else
+                flip(imageView, change, 3, true);
             match_card = false;
         }
     }
@@ -562,12 +595,10 @@ public class playerLayout6 extends AppCompatActivity {
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
                         CPUController();
-                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     }
                 }
                 test();
             } else if(powerCard && !game.players.get(card_number / 4).cabo) {
-                System.out.println("CABO? " + game.players.get(card_number / 4).getOrder() + " " + game.players.get(card_number / 4).cabo);
                 if (selected_card == 7 || selected_card == 8) {
                     if(card_number / 4 == order){
                         int n = game.players.get(order).getHand().get(card_number % 4);
@@ -595,7 +626,6 @@ public class playerLayout6 extends AppCompatActivity {
                             enableAllButtons();
                             if (game.players.get(order).cpu == true) {
                                 CPUController();
-                                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                             }
                         }
                     }
@@ -604,7 +634,8 @@ public class playerLayout6 extends AppCompatActivity {
                         int n = game.players.get((card_number/4)).getHand().get(card_number % 4);
                         //System.out.println("Card: " + n);
                         int change = getCard(n);
-                        flip(card, change, 1, false);
+                        if(!game.players.get(order).cpu)
+                            flip(card, change, 1, false);
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -627,7 +658,6 @@ public class playerLayout6 extends AppCompatActivity {
                             enableAllButtons();
                             if (game.players.get(order).cpu == true) {
                                 CPUController();
-                                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                             }
                         }
                     }
@@ -653,7 +683,8 @@ public class playerLayout6 extends AppCompatActivity {
                         button2.setVisibility(button2.VISIBLE);
 
                         int n = game.players.get(card_number / 4).getHand().get(card_number % 4);
-                        flip(card, getCard(n), 1, false);
+                        if(!game.players.get(order).cpu)
+                            flip(card, getCard(n), 1, false);
 
                         choose_second = false;
                         swap_active = true;
@@ -718,7 +749,6 @@ public class playerLayout6 extends AppCompatActivity {
                         enableAllButtons();
                         if (game.players.get(order).cpu == true) {
                             CPUController();
-                            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         }
                     }
                     test();
@@ -751,7 +781,7 @@ public class playerLayout6 extends AppCompatActivity {
                         textView.animate().alpha(0).setDuration(1000);
                     }
                 }, 1000);
-                System.out.println("Cabo Called!");
+//                System.out.println("Cabo Called!");
 
                 ArrayList<Integer> curHand = game.players.get(order).getHand();
 
@@ -760,6 +790,7 @@ public class playerLayout6 extends AppCompatActivity {
                     flip(card, getCard(curHand.get(i - order*4)), 1, false);
                 }
                 game.players.get(order).cabo = true;
+                cabo_player = order;
                 game.Turns();
                 order = (order + 1) % game.n;
                 match_card = true;
@@ -773,12 +804,11 @@ public class playerLayout6 extends AppCompatActivity {
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
                         CPUController();
-                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     }
                 }
                 test();
             } else if(pickCard && !pickCard_discard && view.getId() == R.id.discard_button_out){
-                System.out.println("Card discarded!");
+//                System.out.println("Card discarded!");
                 if (powerCard && swap_active){
                     flip(card2, R.drawable.card_back, 1, false);
                     brightenCards();
@@ -818,12 +848,11 @@ public class playerLayout6 extends AppCompatActivity {
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
                         CPUController();
-                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     }
                 }
                 test();
             } else if(pickCard && !pickCard_discard && view.getId() == R.id.power_button_out && selected_card >= 7 && !powerCard) {
-                System.out.println("Card power used!");
+//                System.out.println("Card power used!");
 
                 disableAllButtons();
                 powerCard = true;
@@ -836,7 +865,7 @@ public class playerLayout6 extends AppCompatActivity {
                     no_dim.add(3 + order*4);
                     dimCards(no_dim);
                 } else if (selected_card >= 9) {
-                    for(int i = 20; i < 24; i++) {
+                    for(int i = 24; i < 28; i++) {
                         ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
                         card.setColorFilter(Color.argb(150, 0, 0, 0));
                     }
@@ -869,13 +898,13 @@ public class playerLayout6 extends AppCompatActivity {
                 }, 500);
             } else if(pickCard && !pickCard_discard && view.getId() == R.id.keep_button_out) {
                 if (powerCard && swap_active) {
-                    System.out.println("Swapping Card!!");
+//                    System.out.println("Swapping Card!!");
                     keep_13 = true;
                     disableAllButtons();
                     pickCard = false;
                     swap_active = false;
                 } else if(!powerCard){
-                    System.out.println("Card kept!");
+//                    System.out.println("Card kept!");
                     no_dim.clear();
 
                     no_dim.add(order*4);

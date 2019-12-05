@@ -22,11 +22,11 @@ public class Deck {
             }
         }
         shuffle();
-        this.deck.set(30, 1);
-        this.deck.set(29, 13);
-        this.deck.set(28, 9);
-        this.deck.set(27, 11);
-        this.deck.set(26, 13);
+//        this.deck.set(34, 13);
+//        this.deck.set(33, 9);
+//        this.deck.set(32, 11);
+//        this.deck.set(31, 13);
+//        this.deck.set(30, 9);
     }
 
     private void shuffle() {
