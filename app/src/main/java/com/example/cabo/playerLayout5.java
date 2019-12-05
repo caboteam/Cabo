@@ -48,7 +48,7 @@ public class playerLayout5 extends AppCompatActivity {
         if (game.players.get(this.order).getTotal() <= 6 && !cabo_called) {
             View temp = findViewById(R.id.cabo_button_out);
             delay(temp, 4000);
-        } else if (getDiscard() <= 3 && getDiscard() <= game.players.get(order).findLargest()){
+        } else if (getDiscard() <= 3 && getDiscard() <= game.players.get(order).getHand().get(game.players.get(order).findLargest())){
             int index = game.players.get(this.order).findLargest();
             View temp = findViewById(R.id.discard_pile);
             delay(temp, 4000);
@@ -62,7 +62,7 @@ public class playerLayout5 extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (selected_card <= 3 && selected_card <= game.players.get(order).findLargest()) {
+                    if (selected_card <= 3 && selected_card <= game.players.get(order).getHand().get(game.players.get(order).findLargest())) {
                         System.out.println("CARD KEPT!");
                         View temp2 = findViewById(R.id.keep_button_out);
                         delay(temp2, 2000);
