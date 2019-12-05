@@ -186,6 +186,7 @@ public class playerLayout5 extends AppCompatActivity {
                 startActivity(intent);
             }
         }, 10000);
+        return;
     }
 
     public void endRound() {
@@ -221,7 +222,7 @@ public class playerLayout5 extends AppCompatActivity {
             public void run() {
                 win.animate().alpha(0).setDuration(1000);
             }
-        }, 1000);
+        }, 6000);
 
         if(totals[min_index] == totals[cabo_player]){
             TextView h_text = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(cabo_player + 30));
@@ -277,13 +278,19 @@ public class playerLayout5 extends AppCompatActivity {
 
         cabo_called = false;
 
-        int change = getCard(getDiscard());
+        final int change = getCard(getDiscard());
 
         final ImageView discard = findViewById(R.id.discard_pile);
         final ImageView discard_dummy = findViewById(R.id.discard_dummy);
 
-        discard.setImageResource(change);
-        discard_dummy.setImageResource(change);
+        Handler handler4 = new Handler();
+        handler4.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                discard.setImageResource(change);
+                discard_dummy.setImageResource(change);
+            }
+        }, 9000);
 
         final ArrayList<Integer> curHand = game.players.get(order).getHand();
 
@@ -610,7 +617,10 @@ public class playerLayout5 extends AppCompatActivity {
                         else
                             CPUController();
                         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    }
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    } else
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
                 test();
             } else if(powerCard && !game.players.get(card_number / 4).cabo) {
@@ -620,7 +630,8 @@ public class playerLayout5 extends AppCompatActivity {
                         int n = game.players.get(order).getHand().get(card_number % 4);
                         //System.out.println("Card: " + n);
                         int change = getCard(n);
-                        flip(card, change, 1, false);
+                        if(!game.players.get(order).cpu)
+                            flip(card, change, 1, false);
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -658,7 +669,10 @@ public class playerLayout5 extends AppCompatActivity {
                                 else
                                     CPUController();
                                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                            }
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            } else
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         }
                     }
                 } else if(selected_card == 9 || selected_card == 10) {
@@ -706,7 +720,10 @@ public class playerLayout5 extends AppCompatActivity {
                                 else
                                     CPUController();
                                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                            }
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            } else
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         }
                     }
                 } else if((selected_card == 11 || selected_card == 12 || selected_card == 13) && card_number / 4 != order && !choose_second && !swap_active) {
@@ -796,8 +813,7 @@ public class playerLayout5 extends AppCompatActivity {
                     }
 
                     if(order == game.turn.getCount()) {
-                        highlightCurrentPlayer(3500);
-
+                        highlightCurrentPlayer(2500);
                         enableAllButtons();
                         if (game.players.get(order).cpu == true) {
                             if(end_of_round){
@@ -813,7 +829,10 @@ public class playerLayout5 extends AppCompatActivity {
                             else
                                 CPUController();
                             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                        }
+                            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        } else
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                     test();
                 }
@@ -912,8 +931,7 @@ public class playerLayout5 extends AppCompatActivity {
                 }
 
                 if(order == game.turn.getCount()) {
-                    highlightCurrentPlayer(750);
-
+                    highlightCurrentPlayer(2500);
                     enableAllButtons();
                     if (game.players.get(order).cpu == true) {
                         if(end_of_round){
@@ -928,7 +946,11 @@ public class playerLayout5 extends AppCompatActivity {
                         }
                         else
                             CPUController();
-                    }
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    } else
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
                 test();
             } else if(pickCard && !pickCard_discard && view.getId() == R.id.power_button_out && selected_card >= 7 && !powerCard) {
