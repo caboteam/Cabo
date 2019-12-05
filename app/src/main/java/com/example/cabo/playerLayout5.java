@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
@@ -477,6 +478,7 @@ public class playerLayout5 extends AppCompatActivity {
     public void rules(View view) {
         TextView rule = findViewById(R.id.rules);
         rule.setVisibility(rule.VISIBLE);
+        rule.setMovementMethod(new ScrollingMovementMethod());
     }
 
     public void remove_rules(View view) {

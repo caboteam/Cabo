@@ -875,30 +875,26 @@
         android:layout_weight="1"
         android:background="#B2FFFFFF"
         android:clickable="false"
+        android:scrollbars="vertical"
         android:text="Rules:\n\n
-        Objective: To be the player with the lowest total (Adding all cards in front of you) in each round. The player with the highest health when another player hits 0% health wins the game.
-
-Set Up: Each player is dealt 4 cards faced down in front of them. The rest of the cards are shuffled and placed face down to form the deck. The top card from the deck forms the discard pile. Each player is then allowed to look at the 2 cards closest to them for 4 seconds to memorize them.
-
-Rules: At the beginning of a turn, a player can do one the following things:
-1.	Pick a card from the deck:
-o	Swap the selected card for one of your own cards and place the swapped card on top of the discard pile.
-o	Discard the card.
-o	Use its power (If card is greater than 6).
-2.	Pick a card from the discard pile and swap it for one of your own cards.
-3.	Call Cabo.
-Once a player calls Cabo, everyone can see his/her cards and each player gets one last chance before the round ends.
-
-Special Cards:
-•	7-8 (Peek): Look at one of your own cards.
-•	9-10 (Spy): Look at one of any other player’s card.
-•	11-12 (Swap): Swap one of your own cards with another player’s card without looking at any of the card.
-•	13 (Steal): Look at another player’s card and then choose whether to swap it with one of your own cards.
-
+Objective: To be the player with the lowest total (Adding all cards in front of you) in each round. The player with the highest health when another player hits 0% health wins the game.\n\n
+Set Up: Each player is dealt 4 cards faced down in front of them. The rest of the cards are shuffled and placed face down to form the deck. The top card from the deck forms the discard pile. Each player is then allowed to look at the 2 cards closest to them for 4 seconds to memorize them.\n\n
+Rules: At the beginning of a turn, a player can do one the following things:\n\n
+     1.	Pick a card from the deck:\n
+          o	Swap the selected card for one of your own cards and place the swapped card on top of the discard pile.\n
+          o	Discard the card.\n
+          o	Use its power (If card is greater than 6).\n
+     2.	Pick a card from the discard pile and swap it for one of your own cards.\n
+     3.	Call Cabo.\n
+Once a player calls Cabo, everyone can see his/her cards and each player gets one last chance before the round ends.\n\n
+Special Cards:\n\n
+     •	7-8 (Peek): Look at one of your own cards.\n
+     •	9-10 (Spy): Look at one of any other player’s card.\n
+     •	11-12 (Swap): Swap one of your own cards with another player’s card without looking at any of the card.\n
+     •	13 (Steal): Look at another player’s card and then choose whether to swap it with one of your own cards.\n\n
 End of round: At the end of each round (After a player calls Cabo), the player with the lowest total wins. If the person who called Cabo wins, his health increases by 10%, else his health decreases by card total + 10% and the player with lowest total stays at the same health. For all other players, their health decreases by the total of their cards.
-
 "
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="#000000"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -13,7 +13,7 @@
   </component>
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/CPU.java" line="3" />
-    <bookmark url="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/playerLayout5.java" line="25" />
+    <bookmark url="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/playerLayout5.java" line="26" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="974412e9-754a-466d-8ba7-2ebe19beb6ff" name="Default Changelist" comment="">
@@ -119,8 +119,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_player_layout5.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="599">
-              <caret line="898" selection-start-line="898" selection-end-line="898" />
+            <state relative-caret-position="96">
+              <caret line="879" lean-forward="true" selection-start-line="879" selection-end-line="879" />
             </state>
           </provider>
           <provider editor-type-id="android-designer2" />
@@ -130,7 +130,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/playerLayout5.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="42">
-              <caret line="953" column="17" selection-start-line="953" selection-start-column="17" selection-end-line="953" selection-end-column="17" />
+              <caret line="480" column="62" selection-start-line="480" selection-start-column="62" selection-end-line="480" selection-end-column="62" />
               <folding>
                 <element signature="e#1410#1541#0" expanded="true" />
                 <element signature="e#1540#1541#0" expanded="true" />
@@ -237,28 +237,7 @@
       <pane id="Scope" />
       <pane id="ProjectPane" />
       <pane id="PackagesPane" />
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Cabo" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="Cabo" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="Cabo" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -427,7 +406,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575513620495</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="5 Player layout finished">
+      <created>1575518227123</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1575518227125</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -459,14 +445,14 @@
       <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.5013423" side_tool="true" weight="0.70113313" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.3286119" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.3286119" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.21104816" />
+      <window_info active="true" anchor="bottom" id="Build" order="7" visible="true" weight="0.21104816" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
       <window_info anchor="bottom" id="Find" order="9" />
       <window_info anchor="right" id="Device File Explorer" order="0" sideWeight="0.50141644" side_tool="true" weight="0.3295302" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" sideWeight="0.49858356" weight="0.3295302" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info active="true" anchor="right" id="Preview" order="4" visible="true" weight="0.35436243" />
+      <window_info anchor="right" id="Preview" order="4" visible="true" weight="0.28926176" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="right" id="Assistant" order="6" weight="0.3295302" />
       <window_info anchor="right" id="Hierarchy" order="7" weight="0.3295302" />
@@ -690,7 +676,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cabo/playerLayout5.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
-          <caret line="953" column="17" selection-start-line="953" selection-start-column="17" selection-end-line="953" selection-end-column="17" />
+          <caret line="480" column="62" selection-start-line="480" selection-start-column="62" selection-end-line="480" selection-end-column="62" />
           <folding>
             <element signature="e#1410#1541#0" expanded="true" />
             <element signature="e#1540#1541#0" expanded="true" />
@@ -706,8 +692,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_player_layout5.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="599">
-          <caret line="898" selection-start-line="898" selection-end-line="898" />
+        <state relative-caret-position="96">
+          <caret line="879" lean-forward="true" selection-start-line="879" selection-end-line="879" />
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
