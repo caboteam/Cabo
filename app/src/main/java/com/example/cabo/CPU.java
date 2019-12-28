@@ -19,6 +19,7 @@ public class CPU extends Player {
             Arrays.fill(row, -1);
     }
 
+
     private void MakeCPU() {
         this.cpu = true;
     }

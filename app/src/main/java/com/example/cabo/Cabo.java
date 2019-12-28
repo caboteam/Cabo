@@ -7,11 +7,6 @@ import java.util.ArrayList;
 
 
 public class Cabo {
-    private final int[] SPECIAL = { 7, 8, 9, 10, 11, 12, 13 };
-    private final int[] PEEK = { 7, 8 };
-    private final int[] SPY = { 9, 10 };
-    private final int[] SWAP = { 11, 12 };
-    private final int[] STEAL = { 13 };
     private boolean PLAY = true;
 
     public static final String TURN_CHANGE = "Turn Changed";

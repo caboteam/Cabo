@@ -10,9 +10,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.method.ScrollingMovementMethod;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
@@ -34,35 +40,33 @@ public class playerLayout5 extends AppCompatActivity {
     ArrayList<Integer> no_dim = new ArrayList<>();
     //ArrayList<Integer> cards_to_match = new ArrayList<>();
 
-    public void delay(final View view, int n){
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                view.performClick();
-            }
-        }, n);
-    }
-
-
+    /******************************
+    AI Control
+     ******************************/
     public synchronized void CPUController() {
+        //CPU calls cabo
         if (game.players.get(this.order).getTotal() <= 6 && !cabo_called) {
             View temp = findViewById(R.id.cabo_button_out);
-            delay(temp, 4000);
-        } else if (getDiscard() <= 3 && getDiscard() <= game.players.get(order).getHand().get(game.players.get(order).findLargest())){
+            delay(temp, 5000);
+        }
+        // CPU picks discard card and swaps with largest known
+        else if (getDiscard() <= 3 && getDiscard() <= game.players.get(order).getHand().get(game.players.get(order).findLargest())){
             int index = game.players.get(this.order).findLargest();
             View temp = findViewById(R.id.discard_pile);
-            delay(temp, 4000);
+            delay(temp, 5000);
             ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((this.order * (game.n - 1)) + index));
-            delay(card, 6000);
+            delay(card, 7000);
 
-        } else{
+        }
+        // CPU picks card from deck
+        else{
             View temp = findViewById(R.id.deck_dummy);
-            delay(temp, 4000);
+            delay(temp, 5000);
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    // CPU keeps card and swaps with largest known
                     if (selected_card <= 3 && selected_card <= game.players.get(order).getHand().get(game.players.get(order).findLargest())) {
                         System.out.println("CARD KEPT!");
                         View temp2 = findViewById(R.id.keep_button_out);
@@ -70,7 +74,9 @@ public class playerLayout5 extends AppCompatActivity {
                         int index = game.players.get(order).findLargest();
                         ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString((order * (game.n - 1)) + index));
                         delay(card, 4500);
-                    } else if (game.contains(Deck.POWER,selected_card) == true) {
+                    }
+                    // CPU uses power of card
+                    else if (game.contains(Deck.POWER,selected_card) == true) {
                         System.out.println("POWER USED!");
                         int high = game.players.get(order).getHand().size();
                         View temp2 = findViewById(R.id.power_button_out);
@@ -138,19 +144,21 @@ public class playerLayout5 extends AppCompatActivity {
                                 delay(our_card, 9000);
                             }
                         }
-                    } else {
+                    }
+                    // CPU discards card
+                    else {
                         View temp2 = findViewById(R.id.discard_button_out);
-                        delay(temp2, 5000);
+                        delay(temp2, 2000);
                     }
                 }
-            }, 4500);
+            }, 5500);
         }
     }
 
-    public int getDiscard() {
-        int len = game.deck.discard_pile.size() - 1;
-        return game.deck.discard_pile.get(len);
-    }
+
+    /******************************
+     Testing
+     ******************************/
 
     public void test() {
         game.deck.print();
@@ -166,6 +174,124 @@ public class playerLayout5 extends AppCompatActivity {
         System.out.println("turn: " + game.turn.getCount());
         System.out.println("Order: " + order);
         System.out.println("Number of players: " + game.players.size());
+    }
+
+    /******************************
+     Helper methods
+     ******************************/
+
+    public void delay(final View view, int n){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.performClick();
+            }
+        }, n);
+    }
+
+    public int getDiscard() {
+        int len = game.deck.discard_pile.size() - 1;
+        return game.deck.discard_pile.get(len);
+    }
+
+    public int getCard(int n) {
+        Resources res = getResources();
+        return res.getIdentifier("c" + n, "drawable", getPackageName());
+    }
+
+    private void dimCards(ArrayList<Integer> no_dim) {
+        for(int i = 0; i < 24; i++) {
+            if(!no_dim.contains(i)){
+                ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
+                card.setColorFilter(Color.argb(150, 0, 0, 0));
+            }
+        }
+    }
+
+    private synchronized void brightenCards() {
+        for(int i = 0; i < 24; i++){
+            ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
+            card.setColorFilter(Color.argb(0, 0, 0, 0));
+        }
+    }
+
+    public void highlightCurrentPlayer(int n) {
+        no_dim.clear();
+        no_dim.add(order*4);
+        no_dim.add(1 + order*4);
+        no_dim.add(2 + order*4);
+        no_dim.add(3 + order*4);
+        for(int i = 20; i < 24; i++) {
+            no_dim.add(i);
+        }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dimCards(no_dim);
+            }
+        }, n);
+    }
+
+    private void translate(View viewToMove, View target, long n) {
+        viewToMove.animate()
+                .x(target.getX())
+                .y(target.getY())
+                .setDuration(n)
+                .start();
+    }
+
+    private void flip(final ImageView imageView, final int change, final int scale, final boolean center) {
+        final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageView, "scaleX", 1f, 0f);
+        final ObjectAnimator oa2 = ObjectAnimator.ofFloat(imageView, "scaleX", 0f, 1f);
+
+        oa1.setInterpolator(new DecelerateInterpolator());
+        oa2.setInterpolator(new AccelerateDecelerateInterpolator());
+        oa1.addListener(new AnimatorListenerAdapter() {
+
+            @Override
+            public void onAnimationEnd(Animator animation, boolean isReverse) {
+                super.onAnimationEnd(animation);
+                imageView.setImageResource(change);
+                if (center){
+                    DisplayMetrics metrics = getResources().getDisplayMetrics();
+                    ObjectAnimator translationX = ObjectAnimator.ofFloat(imageView, "x", metrics.widthPixels / 2 - imageView.getWidth() / 2);
+                    translationX.setDuration(400);
+                    translationX.start();
+                    imageView.bringToFront();
+                }
+                imageView.animate().scaleX(scale).scaleY(scale).setDuration(400);
+                oa2.start();
+                oa2.setDuration(100);
+            }
+        });
+        oa1.start();
+        oa1.setDuration(100);
+    }
+
+    private void disableAllButtons() {
+        ImageView button1 = findViewById(R.id.discard_button_in);
+        ImageView button2 = findViewById(R.id.power_button_in);
+        ImageView button3 = findViewById(R.id.keep_button_in);
+        ImageView button4 = findViewById(R.id.cabo_button_in);
+
+        button1.setVisibility(button1.INVISIBLE);
+        button2.setVisibility(button2.INVISIBLE);
+        button3.setVisibility(button3.INVISIBLE);
+        button4.setVisibility(button4.INVISIBLE);
+    }
+
+    private void enableAllButtons() {
+        ImageView button1 = findViewById(R.id.discard_button_in);
+        ImageView button2 = findViewById(R.id.power_button_in);
+        ImageView button3 = findViewById(R.id.keep_button_in);
+        ImageView button4 = findViewById(R.id.cabo_button_in);
+
+        button1.setVisibility(button1.VISIBLE);
+        button2.setVisibility(button2.VISIBLE);
+        button3.setVisibility(button3.VISIBLE);
+        button4.setVisibility(button4.VISIBLE);
     }
 
     public void endGame() {
@@ -327,104 +453,68 @@ public class playerLayout5 extends AppCompatActivity {
         }, 14000);
     }
 
-    public int getCard(int n) {
-        Resources res = getResources();
-        return res.getIdentifier("c" + n, "drawable", getPackageName());
-    }
+    public void turnCheck() {
+        if(game.players.get(game.turn.getCount()).cabo){
+            endRound();
+            end_of_round = true;
+        }
 
-    private void dimCards(ArrayList<Integer> no_dim) {
-        for(int i = 0; i < 24; i++) {
-            if(!no_dim.contains(i)){
-                ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
-                card.setColorFilter(Color.argb(150, 0, 0, 0));
+        if(order == game.turn.getCount()) {
+            highlightCurrentPlayer(2500);
+            if (game.players.get(order).cpu == true) {
+                if(end_of_round)
+                    end_of_round = false;
+                CPUController();
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+            } else {
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                enableAllButtons();
             }
         }
     }
 
-    private synchronized void brightenCards() {
-        for(int i = 0; i < 24; i++){
-            ImageView card = findViewById(R.id.activity_detailed_view).findViewWithTag(Integer.toString(i));
-            card.setColorFilter(Color.argb(0, 0, 0, 0));
-        }
+    /******************************
+     Rules
+     ******************************/
+
+    public void rules(View view) {
+        TextView rule = findViewById(R.id.rules);
+        rule.setVisibility(rule.VISIBLE);
+        rule.setMovementMethod(new ScrollingMovementMethod());
+        String text = "<b><u>Rules:</b></u><br><br><b><u>Objective:</u></b> To be the player with the lowest total (Adding all cards in front of you) in each round. The player with the highest " +
+                "health when another player hits 0% health wins the game.<br><br><b><u>Set Up:</u></b> Each player is dealt 4 cards faced down in front of them. The rest of the cards are shuffled" +
+                " and placed face down to form the deck. The top card from the deck forms the discard pile. Each player is then allowed to look at the 2 cards closest to them for 4 seconds to" +
+                " memorize them.<br><br><b><u>Rules:</u></b> At the beginning of a turn, a player can do one the following things:<br>&emsp 1. Pick a card from the deck:<br>          " +
+                "&emsp&emsp&emsp o Swap the selected card for one of your own cards and place the swapped &emsp&emsp&emsp card on top of the discard pile.<br>         &emsp&emsp&emsp " +
+                "o Discard the card.<br>         &emsp&emsp&emsp o Use its power (If card is greater than 6).<br>    &emsp 2. Pick a card from the discard pile and swap it for one of your own cards." +
+                "<br>    &emsp 3. Call Cabo.<br><br>Once a player calls Cabo, everyone can see his/her cards and each player gets one last chance before the round ends.<br><br><b><u>Special " +
+                "Cards:</u></b><br>    &emsp • 7-8 (Peek): Look at one of your own cards.<br>    &emsp • 9-10 (Spy): Look at one of any other player’s card.<br>    &emsp " +
+                "• 11-12 (Swap): Swap one of your own cards with another player’s card without looking at any of the card.<br>    &emsp • 13 (Steal): Look at another player’s card and then " +
+                "choose whether to swap it with one of your own cards.<br><br><b><u>End of round:</u></b> At the end of each round (After a player calls Cabo), the player with the lowest total wins." +
+                " If the person who called Cabo wins, his health increases by 10%, else his health decreases by card total + 10% and the player with lowest total stays at the same health. " +
+                "For all other players, their health decreases by the total of their cards.";
+
+        rule.setText(Html.fromHtml(text));
     }
 
-    public void highlightCurrentPlayer(int n) {
-        no_dim.clear();
-        no_dim.add(order*4);
-        no_dim.add(1 + order*4);
-        no_dim.add(2 + order*4);
-        no_dim.add(3 + order*4);
-        for(int i = 20; i < 24; i++) {
-            no_dim.add(i);
-        }
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dimCards(no_dim);
-            }
-        }, n);
+    public void remove_rules(View view) {
+        int is_visible;
+        TextView rule = findViewById(R.id.rules);
+        is_visible = rule.getVisibility();
+        if (is_visible == 0)
+            rule.setVisibility(rule.INVISIBLE);
     }
 
-    private void translate(View viewToMove, View target, long n) {
-        viewToMove.animate()
-                .x(target.getX())
-                .y(target.getY())
-                .setDuration(n)
-                .start();
+    @Override
+    public void onBackPressed() {
+        // do nothing.
     }
 
-    private void flip(final ImageView imageView, final int change, final int scale, final boolean center) {
-        final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageView, "scaleX", 1f, 0f);
-        final ObjectAnimator oa2 = ObjectAnimator.ofFloat(imageView, "scaleX", 0f, 1f);
-
-        oa1.setInterpolator(new DecelerateInterpolator());
-        oa2.setInterpolator(new AccelerateDecelerateInterpolator());
-        oa1.addListener(new AnimatorListenerAdapter() {
-
-            @Override
-            public void onAnimationEnd(Animator animation, boolean isReverse) {
-                super.onAnimationEnd(animation);
-                imageView.setImageResource(change);
-                if (center){
-                    DisplayMetrics metrics = getResources().getDisplayMetrics();
-                    ObjectAnimator translationX = ObjectAnimator.ofFloat(imageView, "x", metrics.widthPixels / 2 - imageView.getWidth() / 2);
-                    translationX.setDuration(400);
-                    translationX.start();
-                    imageView.bringToFront();
-                }
-                imageView.animate().scaleX(scale).scaleY(scale).setDuration(400);
-                oa2.start();
-                oa2.setDuration(100);
-            }
-        });
-        oa1.start();
-        oa1.setDuration(100);
-    }
-
-    private void disableAllButtons() {
-        ImageView button1 = findViewById(R.id.discard_button_in);
-        ImageView button2 = findViewById(R.id.power_button_in);
-        ImageView button3 = findViewById(R.id.keep_button_in);
-        ImageView button4 = findViewById(R.id.cabo_button_in);
-
-        button1.setVisibility(button1.INVISIBLE);
-        button2.setVisibility(button2.INVISIBLE);
-        button3.setVisibility(button3.INVISIBLE);
-        button4.setVisibility(button4.INVISIBLE);
-    }
-
-    private void enableAllButtons() {
-        ImageView button1 = findViewById(R.id.discard_button_in);
-        ImageView button2 = findViewById(R.id.power_button_in);
-        ImageView button3 = findViewById(R.id.keep_button_in);
-        ImageView button4 = findViewById(R.id.cabo_button_in);
-
-        button1.setVisibility(button1.VISIBLE);
-        button2.setVisibility(button2.VISIBLE);
-        button3.setVisibility(button3.VISIBLE);
-        button4.setVisibility(button4.VISIBLE);
-    }
+    /******************************
+     Gameplay
+     ******************************/
 
     public void pickCardDeck(View view) {
         if (game.turn.getCount() == order && !pickCard_discard && !pickCard){
@@ -436,6 +526,11 @@ public class playerLayout5 extends AppCompatActivity {
             pickCard = true;
             ImageView button = findViewById(R.id.cabo_button_in);
             button.setVisibility(button.INVISIBLE);
+
+            if(selected_card < 7){
+                ImageView button2 = findViewById(R.id.power_button_in);
+                button2.setVisibility(button2.INVISIBLE);
+            }
 
             final ImageView imageView = findViewById(R.id.deck_dummy);
             //imageView.setVisibility(imageView.VISIBLE);
@@ -475,20 +570,6 @@ public class playerLayout5 extends AppCompatActivity {
         }
     }
 
-    public void rules(View view) {
-        TextView rule = findViewById(R.id.rules);
-        rule.setVisibility(rule.VISIBLE);
-        rule.setMovementMethod(new ScrollingMovementMethod());
-    }
-
-    public void remove_rules(View view) {
-        int is_visible;
-        TextView rule = findViewById(R.id.rules);
-        is_visible = rule.getVisibility();
-        if (is_visible == 0)
-            rule.setVisibility(rule.INVISIBLE);
-    }
-
     public void goToMenu(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -520,21 +601,6 @@ public class playerLayout5 extends AppCompatActivity {
         card_number = Integer.parseInt(card.getTag().toString());
 
         if (game.turn.getCount() == order) {
-
-//            if (card_number / 4 == order  && match_card) {
-//                if(cards_to_match.contains(card_number)){
-//                    card.setColorFilter(Color.argb(0, 0, 0, 0));
-//                    cards_to_match.remove(new Integer(card_number));
-//                } else {
-//                    RelativeLayout stack = findViewById(R.id.stack_layout);
-//                    stack.setVisibility(stack.VISIBLE);
-//                    cards_to_match.add(card_number);
-//                    card.setColorFilter(Color.argb(150, 128, 0, 128));
-//                }
-//                for(int i : cards_to_match){
-//                    System.out.print(i + " ");
-//                } System.out.println();
-//            }
             if (keep_card && (card_number / 4) == order) {
                 final int card_change, final_card, n;
 
@@ -597,85 +663,41 @@ public class playerLayout5 extends AppCompatActivity {
                 match_card = true;
                 disableAllButtons();
 
-                if(game.players.get(game.turn.getCount()).cabo){
-                    endRound();
-                    end_of_round = true;
-                }
-
-                if(order == game.turn.getCount()) {
-                    highlightCurrentPlayer(2500);
-                    enableAllButtons();
-                    if (game.players.get(order).cpu == true) {
-                        if(end_of_round){
-                            Handler handler2 = new Handler();
-                            handler2.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    CPUController();
-                                }
-                            }, 14000);
-                            end_of_round = false;
-                        }
-                        else
-                            CPUController();
-                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    } else
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                }
+                turnCheck();
                 test();
             } else if(powerCard && !game.players.get(card_number / 4).cabo) {
-                System.out.println("CABO? " + game.players.get(card_number / 4).getOrder() + " " + game.players.get(card_number / 4).cabo);
                 if (selected_card == 7 || selected_card == 8) {
                     if(card_number / 4 == order){
+
                         int n = game.players.get(order).getHand().get(card_number % 4);
                         //System.out.println("Card: " + n);
                         int change = getCard(n);
+
                         if(!game.players.get(order).cpu)
                             flip(card, change, 1, false);
+                        else{
+                            no_dim.clear();
+                            no_dim.add(card_number);
+                            dimCards(no_dim);
+                        }
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 flip(card, R.drawable.card_back, 1, false);
+                                brightenCards();
                             }
                         }, 2500);
+
+
                         game.Turns();
                         order = (order + 1) % game.n;
                         test();
                         powerCard = false;
                         match_card = true;
-                        brightenCards();
                         pickCard = false;
 
-                        if(game.players.get(game.turn.getCount()).cabo){
-                            endRound();
-                            end_of_round = true;
-                        }
-
-                        if(order == game.turn.getCount()) {
-                            highlightCurrentPlayer(2500);
-                            enableAllButtons();
-                            if (game.players.get(order).cpu == true) {
-                                if(end_of_round){
-                                    Handler handler2 = new Handler();
-                                    handler2.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            CPUController();
-                                        }
-                                    }, 14000);
-                                    end_of_round = false;
-                                }
-                                else
-                                    CPUController();
-                                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                            } else
-                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        }
+                        turnCheck();
                     }
                 } else if(selected_card == 9 || selected_card == 10) {
                     if(card_number / 4 != order) {
@@ -684,11 +706,17 @@ public class playerLayout5 extends AppCompatActivity {
                         int change = getCard(n);
                         if(!game.players.get(order).cpu)
                             flip(card, change, 1, false);
+                        else{
+                            no_dim.clear();
+                            no_dim.add(card_number);
+                            dimCards(no_dim);
+                        }
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 flip(card, R.drawable.card_back, 1, false);
+                                brightenCards();
                             }
                         }, 2500);
                         game.Turns();
@@ -698,35 +726,8 @@ public class playerLayout5 extends AppCompatActivity {
                         match_card = true;
                         powerCard = false;
                         pickCard = false;
-                        brightenCards();
 
-                        if(game.players.get(game.turn.getCount()).cabo){
-                            endRound();
-                            end_of_round = true;
-                        }
-
-                        if(order == game.turn.getCount()) {
-                            highlightCurrentPlayer(2500);
-                            enableAllButtons();
-                            if (game.players.get(order).cpu == true) {
-                                if(end_of_round){
-                                    Handler handler2 = new Handler();
-                                    handler2.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            CPUController();
-                                        }
-                                    }, 14000);
-                                    end_of_round = false;
-                                }
-                                else
-                                    CPUController();
-                                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                            } else
-                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        }
+                        turnCheck();
                     }
                 } else if((selected_card == 11 || selected_card == 12 || selected_card == 13) && card_number / 4 != order && !choose_second && !swap_active) {
                     card2 = card;
@@ -809,33 +810,7 @@ public class playerLayout5 extends AppCompatActivity {
                     powerCard = false;
                     pickCard = false;
 
-                    if(game.players.get(game.turn.getCount()).cabo){
-                        endRound();
-                        end_of_round = true;
-                    }
-
-                    if(order == game.turn.getCount()) {
-                        highlightCurrentPlayer(2500);
-                        enableAllButtons();
-                        if (game.players.get(order).cpu == true) {
-                            if(end_of_round){
-                                Handler handler2 = new Handler();
-                                handler2.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        CPUController();
-                                    }
-                                }, 14000);
-                                end_of_round = false;
-                            }
-                            else
-                                CPUController();
-                            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        } else
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    }
+                    turnCheck();
                     test();
                 }
             }
@@ -844,17 +819,7 @@ public class playerLayout5 extends AppCompatActivity {
 
     public void buttonClick(View view) {
         if (game.turn.getCount() == order) {
-//            if(match_card) {
-//                while(cards_to_match.isEmpty()) {
-//                    if(!game.players.get(order).getHand().contains(cards_to_match.get(0)))
-//                        break;
-//                }
-//                if(cards_to_match.isEmpty()){
-//                    System.out.println("MATCH CARDS SUCCESS!!");
-//                } else {
-//                    System.out.println("MATCH CARDS FAILED!!");
-//                }
-//            }
+
             if(!pickCard && !pickCard_discard && view.getId() == R.id.cabo_button_out && !cabo_called) {
                 final TextView textView = findViewById(R.id.call_cabo);
                 textView.animate().alpha(100).setDuration(6000);
@@ -883,15 +848,7 @@ public class playerLayout5 extends AppCompatActivity {
                 cabo_called = true;
                 //System.out.println("CABO: " + game.players.get(order).getOrder() + " " + game.players.get(order).cabo);
                 brightenCards();
-                if(order == game.turn.getCount()) {
-                    highlightCurrentPlayer(2500);
-
-                    enableAllButtons();
-                    if (game.players.get(order).cpu == true) {
-                        CPUController();
-                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    }
-                }
+                turnCheck();
                 test();
             } else if(pickCard && !pickCard_discard && view.getId() == R.id.discard_button_out){
                 System.out.println("Card discarded!");
@@ -907,10 +864,10 @@ public class playerLayout5 extends AppCompatActivity {
                     final ImageView imageView = findViewById(R.id.deck_dummy);
                     final ImageView back = findViewById(R.id.deck);
 
-                    translate(imageView, discard, 400);
-                    imageView.animate().scaleX(1).scaleY(1).setDuration(400);
                     discard.setImageResource(getCard(selected_card));
                     dummy.setImageResource(getCard(selected_card));
+                    translate(imageView, discard, 400);
+                    imageView.animate().scaleX(1).scaleY(1).setDuration(400);
 
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -927,33 +884,7 @@ public class playerLayout5 extends AppCompatActivity {
                 game.deck.discard_pile.add(selected_card);
                 pickCard = false;
 
-                if(game.players.get(game.turn.getCount()).cabo){
-                    endRound();
-                    end_of_round = true;
-                }
-
-                if(order == game.turn.getCount()) {
-                    highlightCurrentPlayer(2500);
-                    enableAllButtons();
-                    if (game.players.get(order).cpu == true) {
-                        if(end_of_round){
-                            Handler handler2 = new Handler();
-                            handler2.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    CPUController();
-                                }
-                            }, 14000);
-                            end_of_round = false;
-                        }
-                        else
-                            CPUController();
-                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    } else
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                }
+                turnCheck();
                 test();
             } else if(pickCard && !pickCard_discard && view.getId() == R.id.power_button_out && selected_card >= 7 && !powerCard) {
                 System.out.println("Card power used!");
@@ -987,10 +918,10 @@ public class playerLayout5 extends AppCompatActivity {
                 game.deck.discard_pile.add(selected_card);
                 int change = getCard(getDiscard());
 
-                translate(imageView, discard, 400);
-                imageView.animate().scaleX(1).scaleY(1).setDuration(400);
                 discard.setImageResource(change);
                 discard_dummy.setImageResource(change);
+                translate(imageView, discard, 400);
+                imageView.animate().scaleX(1).scaleY(1).setDuration(400);
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -1029,11 +960,6 @@ public class playerLayout5 extends AppCompatActivity {
                 }
             }
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        // do nothing.
     }
 
     @Override

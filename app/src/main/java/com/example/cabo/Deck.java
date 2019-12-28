@@ -22,11 +22,6 @@ public class Deck {
             }
         }
         shuffle();
-//        this.deck.set(34, 13);
-//        this.deck.set(33, 9);
-//        this.deck.set(32, 11);
-//        this.deck.set(31, 13);
-//        this.deck.set(30, 9);
     }
 
     private void shuffle() {
@@ -83,24 +78,4 @@ public class Deck {
         }
         System.out.println("\n");
     }
-
-//	public static void main(String[] arg) {
-//		// Testing for creating a shuffled deck
-//		Deck temp = new Deck();
-//		temp.print();
-//
-//
-//		// Testing for card draw
-//		int val;
-//		for (int i = 0; i < 52; i++) {
-//			val = temp.drawCard();
-//			System.out.println("Card Drawn: " + Integer.toString(val));
-//			System.out.println("Empty = " +  Boolean.toString(temp.isEmpty()));
-//			temp.print();
-//		}
-//		System.out.println();
-//
-//
-//	}
-
 }
